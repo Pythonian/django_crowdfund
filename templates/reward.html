@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Confirm your Pledge{% endblock %}
+      
+{% block content %}
+<div class="crowdfund-body-background">
+    <div class="crowdfund-carousel owl-carousel crowdfund-carousel-bg" id="crowdfund-carousel-bg">
+        <div class="crowdfund-slide" style="background-image: url({% static 'img/1.png' %});"></div>
+    </div>
+    <div class="crowdfund-background-overlay"></div>
+</div>
+<section class="crowdfund-section">
+    <div class="crowdfund-section-content">
+        <div class="crowdfund-limit-width">
+            <div class="crowdfund-title">
+                <h2>Confirm Pledge</h2>
+                <div class="crowdfund-underline"></div>
+            </div>
+            <div class="crowdfund-post crowdfund-block-light">
+                <div class="crowdfund-post-container-big crowdfund-text-large">
+                    <div class="crowdfund-limit-width crowdfund-900">
+                        <h5>Your pledge: {{ reward.name }} (${{ reward.amount }})</h5>
+                        <h5>Perks:</h5>
+                        {% for perk in reward.perks.all %}
+                        <p class="fg-color-red">{{ perk }}</p>
+                        {% endfor %}
+                        <p>
+                            Thank you for coming here to support my project. Please confirm this is the pledge you want and then fill in your billing address for the purpose of book and perk delivery.
+                        </p>
+                        <br>
+                        <form id="pledgeform" action="" method="post"> {% csrf_token %}
+                            <div class="crowdfund-table crowdfund-table-contacts">
+                                <div class="crowdfund-row">
+                                    <div class="crowdfund-col crowdfund-col-12">
+                                        {{ form }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="crowdfund-table crowdfund-content-footer">
+                                <div class="crowdfund-column crowdfund-fullwidth">
+                                    <p class="italic">Don't wish to Continue? <a href="{% url 'home' %}">Cancel</a></p>
+                                </div>
+                                <div class="crowdfund-column">
+                                    <button class="crowdfund-button crowdfund-mobile-fullwidth" type="submit">Continue</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

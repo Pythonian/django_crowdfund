@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="crowdfund-body-background">
+        <div class="crowdfund-carousel owl-carousel crowdfund-carousel-bg" id="crowdfund-carousel-bg">
+            <div class="crowdfund-slide" style="background-image: url({% static 'img/1.png' %});"></div>
+        </div>
+        <div class="crowdfund-background-overlay"></div>
+    </div>
+    
+    <!-- Landing -->
+    <section class="crowdfund-section-home crowdfund-section" id="home">
+        <div class="crowdfund-home-content-wrapper">
+            <div class="crowdfund-home-content">
+                <div class="crowdfund-logo">
+                    <h1 class="crowdfund-logo-title">When Will I Be Famous?</h1>
+                    <div class="crowdfund-logo-subtitle">Enter The Hall Of Fame</div>
+                    <div class="crowdfund-underline"></div>
+                </div>
+                <div class="crowdfund-button-container">
+                    <a class="crowdfund-icon crowdfund-icon-color scrollto" href="{% url 'home' %}#welcome"><i class="fa fa-long-arrow-down"></i></a>
+                </div>            
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Intro -->
+    <section class="crowdfund-section crowdfund-section-color" id="welcome">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-content-padding">
+                    <div class="crowdfund-title">
+                        <h2>Help us tell a Story</h2>
+                        <div class="crowdfund-underline"></div>
+                    </div>
+                    <p class="crowdfund-large">Life is a story. Tales that unfold every day — intentionally or fortuitously — as we try to find meaning to our existence. This quest for essence is not novel. It is a path that has been treaded for aeons by our kind — sometimes the trail is brutal, other times it leaves behind beautiful patterns. And we continue to make these stories — good or bad — true or imagined. It tells us who we are — and what we can become. It becomes the cord that binds our humanity together. It is what makes us humans.
+                    </p>
+                    <div>
+                        <p class="crowdfund-large">
+                            <strong>When Will I Be Famous?</strong> is a collection of 15 short stories — mostly set in Nigeria with a trove of themes like Football Trafficking, Politics, Criminal Justice System, Mental Health, Migration to Domestic Violence, Religion and Politics. 
+                        </p>
+                        <p class="crowdfund-large">
+                            The tales teeter along the excruciating path of the dreamer — floats in the canal of the lost, delves into the illusion that the mind can be subsumed in and still manages to emerge on the other side of triumph — but not without scars. 
+                        </p>
+                        <p class="crowdfund-large">
+                            And this is where you come in. We need your support to help us tell this story that is all ours and etch your name in the Hall of Fame where you rightly belong!
+                        </p>
+                    </div>
+                    <div class="crowdfund-text-center crowdfund-content-footer">
+                        <div class="crowdfund-row crowdfund-row-vmiddle">
+                            <div class="crowdfund-col crowdfund-col-12">
+                                <a class="crowdfund-button crowdfund-mobile-fullwidth crowdfund-button-big" href="{% url 'home' %}#statistics">Support Campaign</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trailer -->
+    <div class="crowdfund-section crowdfund-section-video" id="crowdfund-section-video">
+        <video width="100%" height="100%" controls>
+            <source src="{% static 'video/trailer.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Statistics -->
+    <section class="crowdfund-section-statistic crowdfund-section crowdfund-section-color">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width crowdfund-phone-padding crowdfund-text-center">
+                <div class="crowdfund-row">
+                    <h4>Fundraising started! Time left:</h4>
+                    <div class="crowdfund-countdown-full" id="crowdfund-countdown"></div>
+                    <hr class="crowdfund-hr" />
+                </div>
+                <div class="crowdfund-row">
+                    <h4>Funding Goal</h4>
+                    <div class="crowdfund-statistic-percent crowdfund-animated">
+                        <strong class="crowdfund-statistic-percent-symbol"> $</strong>
+                        <span class="crowdfund-animated-counter" data-thousand-delimiter=",">25000</span>
+                    </div>
+                    <div class="crowdfund-progress crowdfund-fullwidth">
+                        <div class="crowdfund-progress-percent">
+                            <span class="crowdfund-animated-counter">{{ pct_disp }}</span><span>% Raised</span>
+                        </div>
+                        <div class="crowdfund-bar-bg">
+                            <div class="crowdfund-bar crowdfund-animated" style="width: {{ pct }}%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="crowdfund-row crowdfund-row-vmiddle" style="margin-top: 10px;">
+                    <div class="crowdfund-col crowdfund-col-4 crowdfund-col-phone-12">
+                        <span>$</span>
+                        <h3 class="crowdfund-inline crowdfund-animated-counter" data-thousand-delimiter=",">{{ total }}</h3>
+                        <span>Pledged</span>
+                    </div>
+                    <div class="crowdfund-col crowdfund-col-4 crowdfund-col-phone-12">
+                        <h3 class="crowdfund-inline">{{ backers }}</h3>
+                        <span>Backers</span>
+                    </div>
+                    <div class="crowdfund-col crowdfund-col-4 crowdfund-col-phone-12" style="margin-top: 15px;">
+                        <a class="crowdfund-button scrollto" href="{% url 'home' %}#rewards">Back this project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section class="crowdfund-section crowdfund-section-blog" id="blog2">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-content-padding crowdfund-content-padding-vert-small">
+                    <div class="crowdfund-post crowdfund-post-border">
+                        <div class="crowdfund-post-container">
+                            <h5 class="strong">Why Are We Doing This?</h5>
+                            <div class="crowdfund-underline crowdfund-underline-small"></div>
+                            <p class="">
+                                For this campaign, we have a funding goal of $25,000 or its naira equivalent which is going to last for 50 days (October 12 to November 30 202) after which we will start after fulfilling the orders that we get from the campaign. We are crowdfunding this book for a couple of reasons. 
+                            </p>
+                            <p>(1) Publishing Costs: The funds we raise will help meet basic publishing costs for ISBN, book cover design, galley design, professional editor fees, creation of a website (www.whenwillibefamous.com ) for crowdfunding and book sales and printing of the initial 200 copies from a US Printer. Print-On-Demand (POD) technology not only assures quality but also ensures the book is available for sales on Amazon and around the world.
+                            </p>
+                                <p>(2) Marketing Costs. We want to market this book majorly online while driving engagement and sales through social media and the book’s website. We want to ensure the book is well optimized on Amazon to make sales. I plan to hire an Amazon book sales expert in this regard. 
+                                </p>
+                                <p>(3) Living Costs: I live majorly on freelancing gigs but I intend to take a break doing that to focus on my next book—nonfiction which was inspired by the Covid-19 pandemic. I want to give this work all the concentration it would require so that I can meet my deadline. One of the banes of the creative is when you still have to worry about bills when you are working on a book. It tends to stifle your muse and also bog you down. So this would be the equivalent of me getting a grant! We will be able to fund the researches and put all the exigencies in place for the next book project.</p>
+                        </div>
+                    </div>
+                    <div class="crowdfund-post crowdfund-post-border">
+                        <div class="crowdfund-post-container">
+                            <h5 class="strong">What’s In It For Me?</h5>
+                            <div class="crowdfund-underline crowdfund-underline-small"></div>
+                            <p>
+                                We are in a very challenging moment right now across the world with the Covid-19 scourge. People are losing jobs and the economy is biting hard. We are embarking on this project with all sensitivity as our collective good transcends any project. Asides the sheer altruistic gesture of supporting this campaign, we will be adding some rewards which are accentuated with every level of the pledges. We can’t pay you back for chipping into this cause— but we’ll try. Asides the copy of the book and my first book (for Nigerian backers only because of shipping costs), I’ll be offering voiceover services, book services (if you want to publish your book), website building (this is a good time to have an online presence!), promotional videos as perks as you pledge. I have partnered with exceptionally talented young people who would deliver these things to you at a great value. So it won’t just be that you are supporting this project, but you are also going to get a good deal for these services you won’t get elsewhere. We are sorry if these perks don’t impress you!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rewards -->
+    <section class="crowdfund-section crowdfund-section-light crowdfund-section-rewards" id="rewards">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-title">
+                    <h2>Select a Reward</h2>
+                    <div class="crowdfund-underline"></div>
+                </div>
+                <div class="crowdfund-table crowdfund-rewards-table">
+                    {% for r in rewards %}
+                    <div class="crowdfund-row">
+                        <a href="{{ r.get_absolute_url }}">
+                            <span class="crowdfund-column crowdfund-column-cost">${{ r.amount }}</span>
+                            <span class="crowdfund-column crowdfund-column-description"> 
+                                <h5>{{ r.name }}</h5>
+                                {% for perk in r.perks.all %}
+                                <p class="fg-color-gray-light">{{ perk }}</p>
+                                {% endfor %}
+                            </span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="crowdfund-section crowdfund-section-color" id="faq">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-content-padding">
+                    <div class="crowdfund-title">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="crowdfund-underline"></div>
+                    </div>
+                    <div class="crowdfund-content">
+                        <div class="crowdfund-row">
+                            <div class="crowdfund-col crowdfund-col-12">
+                                <div class="crowdfund-row">
+                                    <div class="crowdfund-accordion">
+                                        <a class="crowdfund-accordion-link crowdfund-active">When Will I Receive My Book?</a>
+                                        <div class="crowdfund-accordion-container crowdfund-active">
+                                            <p>
+                                                We are currently editing the second draft of the book and we will be processing the orders we get by the end of the campaign on the 15th of October 2020. The book will be printed and shipped for paperbacks. The digital download will also be processed for different versions and an email will be sent to you to download it when ready.
+                                            </p>
+                                            <p>
+                                                The gears will also be sent to you together with the book and all that you have in the pledge.
+                                                Please note that people outside Nigeria will not be able to get a physical copy of my first book, The “OBAMA” in You! because of the shipping costs.
+                                            </p>
+                                            <p>
+                                                They will, however, get the digital copy of the book. (The book can be purchased on Amazon using this link.)
+                                            </p>
+                                        </div>
+                                        <a class="crowdfund-accordion-link">How About The Perks?</a>
+                                        <div class="crowdfund-accordion-container">
+                                            <p>
+                                                All perks for this project will be received by the end of November latest to enable us to process all the orders.
+                                            </p>
+                                            <p>
+                                                For additional perks like the putting up of the personal video, please contact the author if you want to trigger that option so that you can be scheduled. For websites, you must have your domain name and hosting ready except you pledge a category that comes with free hosting.
+                                            </p>
+                                            <p>
+                                                Spaces are limited for this feature and it will be on a first-come first served basis. You should contact the author if you want this option triggered so that you can be scheduled on the calendar.
+                                            </p>
+                                            <p>
+                                                The personal website and promotional videos will be delivered between November and December 2020.
+                                            </p>
+                                        </div>
+                                        <a class="crowdfund-accordion-link">Can I Get A Refund?</a>
+                                        <div class="crowdfund-accordion-container">
+                                            <p>
+                                                Crowdfunding is not shopping but if for any reasons you changed your mind, you can ask for a refund before the perks are locked on the 15th of October 2020. This may attract administrative charges from the payment gateways. Any request for a refund after this day will not be admitted.
+                                            </p>
+                                        </div>
+                                        <a class="crowdfund-accordion-link">Are My Details Secured With You?</a>
+                                        <div class="crowdfund-accordion-container">
+                                            <p>
+                                                The collection of payment is through Paypal and Paystack who are reliable and verified payment solution companies. We do not have any access to your credit card and debit cards, You can be assured that your details are secure when you use this process and we do not envisage any problems.
+                                            </p>
+                                            <p>
+                                                If you have any reservations or in the event of any unlikely glitch, please use the contact form or call these numbers: 234-8144739213.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us -->
+    <!-- <section class="crowdfund-section crowdfund-section-light crowdfund-section-contacts" id="contact">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-content-padding">
+                    <div class="crowdfund-title">
+                        <h2>Drop us a line</h2>
+                        <div class="crowdfund-underline"></div>
+                    </div>
+                    <form id="contactform" action="php/mailer.php" method="post">
+                        <div class="crowdfund-table crowdfund-table-contacts">
+                            <div class="crowdfund-row">
+                                <div class="crowdfund-col crowdfund-col-6 crowdfund-col-phone-12">
+                                    <input type="text" name="crowdfund-name" placeholder="Your name" required="required" />
+                                    <input type="email" name="crowdfund-email" placeholder="yourmail@example.com" required="required" />
+                                    <input type="text" name="crowdfund-subject" placeholder="Subject" required="required" />
+                                </div>
+                                <div class="crowdfund-col crowdfund-col-6 crowdfund-col-phone-12">
+                                    <textarea placeholder="Message" name="crowdfund-message" required="required"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crowdfund-table crowdfund-content-footer">
+                            <div class="crowdfund-column crowdfund-fullwidth">
+                                <p class="italic">We do not share your personal information. All fields are required.</p>
+                            </div>
+                            <div class="crowdfund-column">
+                                <button class="crowdfund-button crowdfund-mobile-fullwidth" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+{% endblock %}

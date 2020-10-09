@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>{% block title %}When Will I Be Famous?{% endblock %}</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicon.png" />
+    <link rel="stylesheet" href="{% static 'css/preloader.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,700" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+</head>
+
+<body class="crowdfund-body">
+
+    <div id="crowdfund-preloader">
+        <div class="crowdfund-preloader-spin"></div>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <section class="crowdfund-section crowdfund-section-dark crowdfund-section-footer">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-content-padding">
+                    <div class="crowdfund-text-center">
+                        <div class="crowdfund-icon-container">
+                            <a class="crowdfund-icon" href="#">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a class="crowdfund-icon" href="#">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a class="crowdfund-icon" href="#">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                            <a class="crowdfund-icon" href="#">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </div>
+                        <div class="crowdfund-underline crowdfund-underline-small crowdfund-underline-light"></div>
+                        <h5 class="crowdfund-footer-title"><a href="">When Will I Be Famous? &copy; 2020</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'js/preloader.js' %}"></script>
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'js/jquery.fitvids.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/masonry.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countimator.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
