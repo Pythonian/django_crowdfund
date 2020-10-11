@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import datetime
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u8)ovnznrqzkwbzae+3%=vldh6ba%q6=#@j0nn*9az%2vgol@w'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1:8000', '127.0.0.1', 'www.whenwillibefamous.com', 'whenwillibefamous']
 
 
 # Application definition
@@ -131,9 +131,10 @@ STATICFILES_DIRS = (
 )
 
 # Braintree settings
-BRAINTREE_MERCHANT_ID = 'f8dw6j4ypwjfx97m'  # Merchant ID
-BRAINTREE_PUBLIC_KEY = 'cq23939zqtfsk7hj'   # Public Key
-BRAINTREE_PRIVATE_KEY = '446d18c7013f980f8cae3ca115cdca36'  # Private key
+
+BRAINTREE_MERCHANT_ID = os.environ.get('BRAINTREE_MERCHANT_ID', 'f8dw6j4ypwjfx97m')
+BRAINTREE_PUBLIC_KEY = os.environ.get('BRAINTREE_PUBLIC_KEY', 'cq23939zqtfsk7hj')
+BRAINTREE_PRIVATE_KEY = os.environ.get('BRAINTREE_PRIVATE_KEY', '446d18c7013f980f8cae3ca115cdca36')
 
 import braintree
 
@@ -148,7 +149,15 @@ BRAINTREE_CONF = braintree.Configuration(
 GOAL = 25000
 
 # Date (datetime object) when the campaign will end
-DATE = datetime.datetime.now() + datetime.timedelta(days=30)
+# DATE = datetime.datetime.now() + datetime.timedelta(days=30)
+DATE = '2020-11-30'
 
-# Disable new contributions when time runs out?
-STOP = False
+# ENV = os.environ.get('ENV')
+
+# if ENV == 'production':
+#     ALLOWED_HOSTS = ['.herokuapp.com']
+#     SECRET_KEY = os.environ.get('SECRET_KEY')
+#     DEBUG = int(os.environ.get('DEBUG'))
+#     import dj_database_url
+#     DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+    

@@ -397,11 +397,11 @@ $(window).on("load", function(){
       var endDate;
       //Automatically set countdown to current day + 7 days
       //Comment this on your production site:
-      //endDate = new Date();
-      //endDate.setDate(endDate.getDate() + 7);
+      endDate = new Date();
+      endDate.setDate(endDate.getDate() + 50);
 
       //Just comment code above and set necessary date to endDate variable like here:
-      endDate = '2020/11/30';
+      // endDate = new Date("2020-11-30");
 
       $('#crowdfund-countdown').countdown(endDate).on('update.countdown', function(event) {
         var $this = $(this).html(event.strftime(''

@@ -23,17 +23,16 @@ def intWithCommas(x):
 
 
 def get_context():
-	total = Order.objects.all().aggregate(Sum('reward__amount'))['reward__amount__sum']
+	total = Order.objects.filter(paid=True).aggregate(Sum('reward__amount'))['reward__amount__sum']
 	pct = ((100 * float(total) / float(settings.GOAL)) if total else 0)
 	c = {
-		'activepage': 'home',
 		'goal': intWithCommas(settings.GOAL),
-		'backers': Order.objects.count(),
+		'backers': Order.objects.filter(paid=True).count(),
 		'pct': pct,
 		'pct_disp': (int(pct) if total else 0),
 		'total': (intWithCommas(int(total)) if total else '0'),
-		'nopay': (True if settings.STOP and (settings.DATE - datetime.datetime.now()).days < 0 else False),
-		'days': (settings.DATE - datetime.datetime.now()).days,
+		# 'nopay': (True if settings.STOP and (settings.DATE - datetime.datetime.now()).days < 0 else False),
+		# 'days': (settings.DATE - datetime.datetime.now()).days,
 		'rewards': sorted(Reward.objects.all(), key=lambda i: i.amount),
 		}
 	return c

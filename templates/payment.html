@@ -5,29 +5,29 @@
 {% block content %}
 <style>
   .hosted-field {
-  height: 20px;
+  height: 10px;
 }
 #card-number, #cvv, #expiration-date {
   /* border: 1px solid #333;
   -webkit-transition: border-color 160ms;
   transition: border-color 160ms; */
   color: #2b2b2b;
-    border-color: rgba(142, 142, 142, 0.4);
+  border-color: #777;
 width: 100%;
-    margin: 0 0 1rem 0;
+    margin: 0 0 2rem 0;
     min-width: 15rem;
-padding: 1rem 0;
+height: 55px;
 border: none;
     box-sizing: border-box;
     background: none;
-border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+border-bottom: 2px solid #777;
 transition: border 0.4s ease;
 font-size: 18px;
     font-weight: 300;
     font-family: "Montserrat", "Helvetica", sans-serif;
 }
 #braintree-hosted-field-number {
-  height:20px;
+  height:10px;
 }
 #card-number.braintree-hosted-fields-focused {
   border-color: #777;
@@ -66,7 +66,7 @@ font-size: 18px;
                       <label for="cvv">CVV</label>
                       <div id="cvv" class="field"></div>
 
-                      <label for="expiration-date">Expiration Date</label>
+                      <label for="expiration-date">Expiration Date (MM / YY)</label>
                       <div id="expiration-date" class="field"></div>
 
                       <input type="hidden" id="nonce" name="payment_method_nonce" value="">

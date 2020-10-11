@@ -28,6 +28,7 @@ class Order(models.Model):
 	address = models.CharField(max_length=255)
 	country = models.CharField(max_length=255)
 	reward = models.ForeignKey(Reward, on_delete=models.CASCADE)
+	note = models.TextField(blank=True)
 	email = models.EmailField(verbose_name='Email')
 	created = models.DateTimeField(auto_now_add=True)
 	paid = models.BooleanField(default=False)

@@ -7,7 +7,12 @@ class PerkInlineAdmin(admin.StackedInline):
 
 class RewardAdmin(admin.ModelAdmin):
     inlines = [PerkInlineAdmin]
+    list_display = ['name', 'amount']
 
 
 admin.site.register(Reward, RewardAdmin)
-admin.site.register(Order)
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['name', 'reward', 'paid']
+
+admin.site.register(Order, OrderAdmin)

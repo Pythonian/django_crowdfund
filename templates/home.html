@@ -51,7 +51,7 @@
                     <div class="crowdfund-text-center crowdfund-content-footer">
                         <div class="crowdfund-row crowdfund-row-vmiddle">
                             <div class="crowdfund-col crowdfund-col-12">
-                                <a class="crowdfund-button crowdfund-mobile-fullwidth crowdfund-button-big" href="{% url 'home' %}#statistics">Support Campaign</a>
+                                <a class="crowdfund-button crowdfund-mobile-fullwidth crowdfund-button-big scrollto" href="{% url 'home' %}#statistics">Support Campaign</a>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
     </div>
 
     <!-- Statistics -->
-    <section class="crowdfund-section-statistic crowdfund-section crowdfund-section-color">
+    <section class="crowdfund-section-statistic crowdfund-section crowdfund-section-color" id="statistics">
         <div class="crowdfund-section-content">
             <div class="crowdfund-limit-width crowdfund-phone-padding crowdfund-text-center">
                 <div class="crowdfund-row">
@@ -95,12 +95,12 @@
                 <div class="crowdfund-row crowdfund-row-vmiddle" style="margin-top: 10px;">
                     <div class="crowdfund-col crowdfund-col-4 crowdfund-col-phone-12">
                         <span>$</span>
-                        <h3 class="crowdfund-inline crowdfund-animated-counter" data-thousand-delimiter=",">{{ total }}</h3>
+                        <h3 class="crowdfund-inline">{{ total }}</h3>
                         <span>Pledged</span>
                     </div>
                     <div class="crowdfund-col crowdfund-col-4 crowdfund-col-phone-12">
                         <h3 class="crowdfund-inline">{{ backers }}</h3>
-                        <span>Backers</span>
+                        <span>Backer{{ backers|pluralize }}</span>
                     </div>
                     <div class="crowdfund-col crowdfund-col-4 crowdfund-col-phone-12" style="margin-top: 15px;">
                         <a class="crowdfund-button scrollto" href="{% url 'home' %}#rewards">Back this project</a>
@@ -120,13 +120,13 @@
                             <h5 class="strong">Why Are We Doing This?</h5>
                             <div class="crowdfund-underline crowdfund-underline-small"></div>
                             <p class="">
-                                For this campaign, we have a funding goal of $25,000 or its naira equivalent which is going to last for 50 days (October 12 to November 30 202) after which we will start after fulfilling the orders that we get from the campaign. We are crowdfunding this book for a couple of reasons. 
+                                For this campaign, we have a funding goal of $25,000 or its naira equivalent which is going to last for 50 days (October 12 to November 30 2020) after which we will start after fulfilling the orders that we get from the campaign. We are crowdfunding this book for a couple of reasons. 
                             </p>
                             <p>(1) Publishing Costs: The funds we raise will help meet basic publishing costs for ISBN, book cover design, galley design, professional editor fees, creation of a website (www.whenwillibefamous.com ) for crowdfunding and book sales and printing of the initial 200 copies from a US Printer. Print-On-Demand (POD) technology not only assures quality but also ensures the book is available for sales on Amazon and around the world.
                             </p>
                                 <p>(2) Marketing Costs. We want to market this book majorly online while driving engagement and sales through social media and the book’s website. We want to ensure the book is well optimized on Amazon to make sales. I plan to hire an Amazon book sales expert in this regard. 
                                 </p>
-                                <p>(3) Living Costs: I live majorly on freelancing gigs but I intend to take a break doing that to focus on my next book—nonfiction which was inspired by the Covid-19 pandemic. I want to give this work all the concentration it would require so that I can meet my deadline. One of the banes of the creative is when you still have to worry about bills when you are working on a book. It tends to stifle your muse and also bog you down. So this would be the equivalent of me getting a grant! We will be able to fund the researches and put all the exigencies in place for the next book project.</p>
+                                <p>(3) Living Costs: I live majorly on freelancing gigs but I intend to take a break doing that to focus on my next book — nonfiction which was inspired by the Covid-19 pandemic. I want to give this work all the concentration it would require so that I can meet my deadline. One of the banes of the creative is when you still have to worry about bills when you are working on a book. It tends to stifle your muse and also bog you down. So this would be the equivalent of me getting a grant! We will be able to fund the researches and put all the exigencies in place for the next book project.</p>
                         </div>
                     </div>
                     <div class="crowdfund-post crowdfund-post-border">
@@ -134,7 +134,33 @@
                             <h5 class="strong">What’s In It For Me?</h5>
                             <div class="crowdfund-underline crowdfund-underline-small"></div>
                             <p>
-                                We are in a very challenging moment right now across the world with the Covid-19 scourge. People are losing jobs and the economy is biting hard. We are embarking on this project with all sensitivity as our collective good transcends any project. Asides the sheer altruistic gesture of supporting this campaign, we will be adding some rewards which are accentuated with every level of the pledges. We can’t pay you back for chipping into this cause— but we’ll try. Asides the copy of the book and my first book (for Nigerian backers only because of shipping costs), I’ll be offering voiceover services, book services (if you want to publish your book), website building (this is a good time to have an online presence!), promotional videos as perks as you pledge. I have partnered with exceptionally talented young people who would deliver these things to you at a great value. So it won’t just be that you are supporting this project, but you are also going to get a good deal for these services you won’t get elsewhere. We are sorry if these perks don’t impress you!
+                                We are in a very challenging moment right now across the world with the Covid-19 scourge. People are losing jobs and the economy is biting hard. We are embarking on this project with all sensitivity as our collective good transcends any project. Asides the sheer altruistic gesture of supporting this campaign, we will be adding some rewards which are accentuated with every level of the pledges. We can’t pay you back for chipping into this cause — but we’ll try. Asides the copy of the book and my first book (for Nigerian backers only because of shipping costs), I’ll be offering voiceover services, book services (if you want to publish your book), website building (this is a good time to have an online presence!), promotional videos as perks as you pledge. I have partnered with exceptionally talented young people who would deliver these things to you at a great value. So it won’t just be that you are supporting this project, but you are also going to get a good deal for these services you won’t get elsewhere. We are sorry if these perks don’t impress you!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="crowdfund-post crowdfund-block-color">
+                        <div class="crowdfund-post-container">
+                            <h5 class="strong">About Me</h5>
+                            <div class="crowdfund-underline crowdfund-underline-small"></div>
+                            <p>
+                                Opeyemi Philips is a Nigerian- born Global Citizen who writes with the pseudonym O.P. Philips. He is an author, entrepreneur, voice talent, a writer of fiction, nonfiction, a lover of football and an advocate for justice. He has worked in the creative industries in Nigeria for over twenty years— developing contents for film, television, print media and the new media. He has also collaborated with foreigners for film projects and educational initiatives.
+                            </p>
+                            <p>
+                                As a voice talent, he has recorded dozens of commercials, audiobooks, documentary and animation narrations, pre-recorded messages and just about everything that can be voiced.
+In 2012 Opeyemi authored his first published book: The “OBAMA” in You! A self-help book that chronicles the journey that led President Obama to unprecedented victory and how people can achieve goals using the same time-honoured principles.
+                            </p>
+                            <p>
+                                He used to run one of Nigeria’s biggest podcast—NaijaPodcast which he plans to bring back once he eases on his writing projects.
+                            </p>
+                            <p>
+                                Asides writing, Opeyemi is an entrepreneur with a predilection for online businesses and he runs a blog—What Football Teaches (WFT) — that uses football (soccer) to inspire people and entities to be their best versions. This blog was inspired by his on-going work What Football Teaches About Life—a nonfiction book.
+                            </p>
+                            <p>
+                                Currently, he is back in college studying Business Administration at The University of The People.
+When he is not reading or watching Manchester United, he loves volunteering for community work.
+                            </p>
+                            <p>
+                                He is happily single and has been stuck in Surulere, Lagos Nigeria even before the pandemic!
                             </p>
                         </div>
                     </div>
@@ -165,6 +191,25 @@
                         </a>
                     </div>
                     {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="crowdfund-section">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-content-padding">
+                    <div class="crowdfund-title">
+                        <h2>Thank you for being here</h2>
+                        <div class="crowdfund-underline"></div>
+                    </div>
+                    <p class="crowdfund-large">
+                        You will be doing us a lot of good if you could help spread the word about this book project! Even if you are not chipping in this time, feel free share our videos media tool kits and promotional materials on social media.
+                    </p>
+                    <p class="crowdfund-large">
+                        My team and I would like to thank you profoundly for being on this page and considering chipping in. It’s no small thing for us. We love you!
+                    </p>
                 </div>
             </div>
         </div>
