@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'mywwibf',
         'USER': 'mywwibfuser',
         'PASSWORD': 'mywwibfpwd',
-        'HOST': '127.0.0.1',
+        'HOST': '',
         'PORT': '',
     }
 }
