@@ -165,3 +165,7 @@ GOAL = 25000
 # Date (datetime object) when the campaign will end
 # DATE = datetime.datetime.now() + datetime.timedelta(days=30)
 DATE = '2020-11-30'
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
