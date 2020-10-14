@@ -77,19 +77,24 @@ WSGI_APPLICATION = 'django_crowdfund.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mywwibf',
+        'USER': 'mywwibfuser',
+        'PASSWORD': 'mywwibfpwd',
+        'HOST': '127.0.0.1',
+        'PORT': '',
     }
-else:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL')
-        )
-    }
+}
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -135,9 +140,9 @@ STATIC_ROOT = BASE_DIR / 'static_root'
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    BASE_DIR, 'static',
-)
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Braintree settings
 
@@ -160,13 +165,3 @@ GOAL = 25000
 # Date (datetime object) when the campaign will end
 # DATE = datetime.datetime.now() + datetime.timedelta(days=30)
 DATE = '2020-11-30'
-
-# ENV = os.environ.get('ENV')
-
-# if ENV == 'production':
-#     ALLOWED_HOSTS = ['.herokuapp.com']
-#     SECRET_KEY = os.environ.get('SECRET_KEY')
-#     DEBUG = int(os.environ.get('DEBUG'))
-#     import dj_database_url
-#     DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-    
