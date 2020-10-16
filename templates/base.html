@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/simple-lightbox.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
 </head>
@@ -53,6 +54,7 @@
 
     <script src="{% static 'js/preloader.js' %}"></script>
     <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'js/simple-lightbox.min.js' %}"></script>
     <script src="{% static 'js/jquery.fitvids.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/masonry.min.js' %}"></script>
@@ -60,5 +62,10 @@
     <script src="{% static 'js/wow.min.js' %}"></script>
     <script src="{% static 'js/jquery.countimator.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        (function() {
+            var $gallery = new SimpleLightbox('.crowdfund-portfolio-item a', {});
+        })();
+    </script>
 </body>
 </html>
