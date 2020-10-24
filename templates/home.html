@@ -115,89 +115,25 @@
         <div class="crowdfund-section-content">
             <div class="crowdfund-limit-width">
                 <div class="crowdfund-content-padding crowdfund-content-padding-vert-small">
-                    <div class="crowdfund-post crowdfund-post-border">
+                    {% for section in sections %}
+                    <div class="crowdfund-post {% if not forloop.last %}crowdfund-post-border{% else %}crowdfund-block-color{% endif %}">
+                        {% if section.image %}
+                        <div class="crowdfund-post-img crowdfund-post-img-left" style="background-image: url({{ section.image.url }});"></div>
+                        {% endif %}
                         <div class="crowdfund-post-container">
-                            <h5 class="strong">Why Are We Doing This?</h5>
+                            <h5 class="strong">{{ section.title }}</h5>
                             <div class="crowdfund-underline crowdfund-underline-small"></div>
-                            <p class="">
-                                For this campaign, we have a funding goal of $25,000 or its naira equivalent which is going to last for 50 days (October 12 to November 30 2020) after which we will start after fulfilling the orders that we get from the campaign. We are crowdfunding this book for a couple of reasons. 
-                            </p>
-                            <p>(1) Publishing Costs: The funds we raise will help meet basic publishing costs for ISBN, book cover design, galley design, professional editor fees, creation of a website for crowdfunding and book sales and printing of the initial 200 copies from a US Printer. Print-On-Demand (POD) technology not only assures quality but also ensures the book is available for sales on Amazon and around the world.
-                            </p>
-                                <p>(2) Marketing Costs. We want to market this book majorly online while driving engagement and sales through social media and the book’s website. We want to ensure the book is well optimized on Amazon to make sales. I plan to hire an Amazon book sales expert in this regard. 
-                                </p>
-                                <p>(3) Living Costs: I live majorly on freelancing gigs but I intend to take a break doing that to focus on my next book — nonfiction which was inspired by the Covid-19 pandemic. I want to give this work all the concentration it would require so that I can meet my deadline. One of the banes of the creative is when you still have to worry about bills when you are working on a book. It tends to stifle your muse and also bog you down. So this would be the equivalent of me getting a grant! We will be able to fund the researches and put all the exigencies in place for the next book project.</p>
+                            {{ section.content|linebreaks }}
                         </div>
                     </div>
-                    <div class="crowdfund-post crowdfund-post-border">
-                        <div class="crowdfund-post-container">
-                            <h5 class="strong">What’s In It For Me?</h5>
-                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                            <p>
-                                We are in a very challenging moment right now across the world with the Covid-19 scourge. People are losing jobs and the economy is biting hard. We are embarking on this project with all sensitivity as our collective good transcends any project. Asides the sheer altruistic gesture of supporting this campaign, we will be adding some rewards which are accentuated with every level of the pledges. We can’t pay you back for chipping into this cause — but we’ll try. Asides the copy of the book and my first book (for Nigerian backers only because of shipping costs), I’ll be offering voiceover services, book services (if you want to publish your book), website building (this is a good time to have an online presence!), promotional videos as perks as you pledge. I have partnered with exceptionally talented young people who would deliver these things to you at a great value. So it won’t just be that you are supporting this project, but you are also going to get a good deal for these services you won’t get elsewhere. We are sorry if these perks don’t impress you!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="crowdfund-post crowdfund-post-border">
-                        <div class="crowdfund-post-container">
-                            <h5 class="strong">Why you should trust this campaign</h5>
-                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                            <p>
-                                My first stint in publishing was eight years ago. Back then, I did some sort of crowdfunding and gathered just about enough money to publish. I was just following my instinct as a young man with a dose of exuberance —knocking on every door like a desperate politician on the campaign trail! 
-                            </p>
-                            <p>
-                                We had the book launch at the Nigerian Institute of International Affairs and it was a beautiful event with important guests like the current MD of the bank of Industry—Kayode Pitan and Co-founder of The Sahara Group—Tonye Cole amidst other important dignitaries. 
-                            </p>
-                            <p>
-                                We also partnered with logistics behemoth DHL who helped us in bringing in reprinted copies from India. The book did fairly well for a book with limited marketing — selling almost a thousand copies. After publishing, I gained a sizeable amount of experience in publishing and even went further to study more on publishing as I worked with a big printer from India (Balwant Printers) as senior Business Development Manager—helping them fulfil printing orders from Nigeria. We also partnered with logistics behemoth DHL who helped us in bringing in reprinted copies from India. The book did fairly well for a book with limited marketing — selling almost a thousand copies. After publishing, I gained a sizeable amount of experience in publishing and even went further to study more on publishing as I worked with a big printer from India (Balwant Printers) as senior Business Development Manager—helping them fulfil printing orders from Nigeria. 
-                            </p>
-                            <p>
-                                I have a good experience in publishing to deliver on what I promise here.
-                            </p>
-                            <div class="crowdfund-text-center crowdfund-content-footer">
-                                <div class="crowdfund-button-container">
-                                    <a class="crowdfund-button crowdfund-button-big crowdfund-mobile-fullwidth scrollto" href="#portfolio">
-                                        Check Our Gallery Below
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="crowdfund-post crowdfund-block-color">
-                        <div class="crowdfund-post-img crowdfund-post-img-left" style="background-image: url({% static 'img/author.jpeg' %});"></div>
-                        <div class="crowdfund-post-container">
-                            <h5 class="strong">About The Author</h5>
-                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                            <p>
-                                Opeyemi Philips is a Nigerian- born Global Citizen who writes with the pseudonym O.P. Philips. He is an author, entrepreneur, voice talent, a writer of fiction, nonfiction, a lover of football and an advocate for justice. He has worked in the creative industries in Nigeria for over twenty years — developing contents for film, television, print media and the new media. He has also collaborated with foreigners for film projects and educational initiatives.
-                            </p>
-                            <p>
-                                As a voice talent, he has recorded dozens of commercials, audiobooks, documentary and animation narrations, pre-recorded messages and just about everything that can be voiced.
-                            </p>
-                            <p>In 2012 Opeyemi authored his first published book: The “OBAMA” in You! A self-help book that chronicles the journey that led President Obama to unprecedented victory and how people can achieve goals using the same time-honoured principles.
-                            </p>
-                            <p>
-                                He used to run one of Nigeria’s biggest podcast — NaijaPodcast which he plans to bring back once he eases on his writing projects.
-                            </p>
-                            <p>
-                                Asides writing, Opeyemi is an entrepreneur with a predilection for online businesses and he runs a blog—What Football Teaches (WFT) — that uses football (soccer) to inspire people and entities to be their best versions. This blog was inspired by his on-going work What Football Teaches About Life—a nonfiction book.
-                            </p>
-                            <p>
-                                Currently, he is back in college studying Business Administration at The University of The People.
-When he is not reading or watching Manchester United, he loves volunteering for community work.
-                            </p>
-                            <p>
-                                He is happily single and has been stuck in Surulere, Lagos Nigeria even before the pandemic!
-                            </p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio -->
-    <section class="crowdfund-section crowdfund-section-portfolio crowdfund-section-color id="portfolio">
+    <!-- Gallery -->
+    <section class="crowdfund-section crowdfund-section-portfolio crowdfund-section-color id="gallery">
         <div class="crowdfund-section-content">
             <div class="crowdfund-limit-width">
                 <div class="crowdfund-title">
@@ -206,132 +142,30 @@ When he is not reading or watching Manchester United, he loves volunteering for 
                 </div>
                 <div class="crowdfund-portfolio crowdfund-portfolio-column-3 crowdfund-portfolio-showall">
                     <div class="crowdfund-portfolio-items">
+                        {% for photo in photos %}
                         <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/2.jpeg' %}">
-                                <img src="{% static 'img/2.jpeg' %}" alt="Portfolio item" />
+                            <a class="crowdfund-portfolio-item-container" href="{{ photo.image.url }}">
+                                <img src="{{ photo.image_thumbnail.url }}" alt="{{ photo.caption }}" />
+                                {% if photo.title or photo.caption %}
                                 <div class="crowdfund-overlay">
                                     <div class="crowdfund-portfolio-item-content">
-                                        <h5>Gentleman's bag</h5>
+                                        {% if photo.title %}<h5>{{ photo.title }}</h5>{% endif %}
+                                        {% if photo.caption %}
                                         <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>Are you businessman? We have something great for you...</p>
+                                            {% if photo.title and photo.caption %}<div class="crowdfund-underline crowdfund-underline-small"></div>{% endif %}
+                                            <p>{{ photo.caption }}</p>
                                         </div>
+                                        {% endif %}
                                     </div>
                                 </div>
+                                {% endif %}
                             </a>
                         </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/3.jpeg' %}">
-                                <img src="{% static 'img/3.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>Life is travel</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>Journeys are best what happening in our life</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/4.jpeg' %}">
-                                <img src="{% static 'img/4.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>Always with you</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>Wherever you be</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/5.jpeg' %}">
-                                <img src="{% static 'img/5.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>Aim higher</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>No pain no gain</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/6.jpeg' %}">
-                                <img src="{% static 'img/6.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>Cool and elegant</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>Like man in black</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/7.jpeg' %}">
-                                <img src="{% static 'img/7.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>More colors</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>Red Bag isn't only red</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/1.jpeg' %}">
-                                <img src="{% static 'img/1.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>More colors</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>Red Bag isn't only red</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/carton.jpeg' %}">
-                                <img src="{% static 'img/carton.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>More colors</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>Red Bag isn't only red</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="crowdfund-portfolio-item">
-                            <a class="crowdfund-portfolio-item-container" href="{% static 'img/8.jpeg' %}">
-                                <img src="{% static 'img/8.jpeg' %}" alt="Portfolio item" />
-                                <div class="crowdfund-overlay">
-                                    <div class="crowdfund-portfolio-item-content">
-                                        <h5>Do not wait</h5>
-                                        <div class="crowdfund-phone-hidden">
-                                            <div class="crowdfund-underline crowdfund-underline-small"></div>
-                                            <p>It is time for adventure</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                        {% empty %}
+                        <p class="crowdfund-text-center">
+                            No pictures yet.
+                        </p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -398,48 +232,14 @@ When he is not reading or watching Manchester United, he loves volunteering for 
                             <div class="crowdfund-col crowdfund-col-12">
                                 <div class="crowdfund-row">
                                     <div class="crowdfund-accordion">
-                                        <a class="crowdfund-accordion-link crowdfund-active">When Will I Receive My Book?</a>
-                                        <div class="crowdfund-accordion-container crowdfund-active">
-                                            <p>
-                                                We are currently editing the second draft of the book and we will be processing the orders we get by the end of the campaign on the 30th of November 2020. The book will be printed and shipped for paperbacks and should get in January or February 2021. The digital download will also be processed for different versions and an email will be sent to you to download it when ready.
-                                            </p>
-                                            <p>
-                                                The gears will also be sent to you together with the book and all that you have in the pledge.
-                                            </p>
-                                            <p>
-                                                Please note that people outside Nigeria will not be able to get a physical copy of my first book, The “OBAMA” in You! because of the shipping costs. They will, however, get the digital copy of the book.
-                                            </p>
+                                        {% for faq in faqs %}
+                                        <a class="crowdfund-accordion-link {% if forloop.first  %}crowdfund-active{% endif %}">{{ faq.title }}</a>
+                                        <div class="crowdfund-accordion-container {% if forloop.first %}crowdfund-active{% endif %}">
+                                            {% for desc in faq.faqs.all %}
+                                            {{ desc.description|linebreaks }}
+                                            {% endfor %}
                                         </div>
-
-                                        <a class="crowdfund-accordion-link">How About The Perks?</a>
-                                        <div class="crowdfund-accordion-container">
-                                            <p>
-                                                All perks for this project will be received by February 2021 latest to enable us to process all the orders.
-                                            </p>
-                                            <p>
-                                                For additional perks like the putting up of promotional video or a website, please contact the author if you want to trigger that option so that you can be scheduled. For websites, you must have your domain name and host ready except you pledge a category that comes with free hosting.
-                                            </p>
-                                            <p>
-                                                Spaces are limited for this feature and it will be on a first-come-first-served basis. You should contact the author if you want to explore this option so that you can be scheduled on the calendar.
-                                            </p>
-                                        </div>
-
-                                        <a class="crowdfund-accordion-link">Can I Get A Refund?</a>
-                                        <div class="crowdfund-accordion-container">
-                                            <p>
-                                                Nah! Why would you want to do that? No refunds so please consider this well before chipping in! Haha!
-                                            </p>
-                                        </div>
-
-                                        <a class="crowdfund-accordion-link">Are My Details Secured With You?</a>
-                                        <div class="crowdfund-accordion-container">
-                                            <p>
-                                                The collection of payment is Paystack and Swipe and these are reliable payment solution companies. We do not have any access to your credit card and debit cards details. 
-                                            </p>
-                                            <p>
-                                                If you have any reservations or in the event of any unlikely glitch, please use the contact form or call these numbers: 234-8144739213.
-                                            </p>
-                                        </div>
+                                        {% endfor %}
 
                                     </div>
                                 </div>

@@ -4,7 +4,7 @@ from django.db.models import Sum
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .models import Reward, Order
+from .models import Reward, Order, FrequentlyAskedQuestion, Section, Gallery
 from .forms import OrderCreateForm
 
 
@@ -27,13 +27,14 @@ def get_context():
 	pct = ((100 * float(total) / float(settings.GOAL)) if total else 0)
 	c = {
 		'goal': intWithCommas(settings.GOAL),
+		'faqs': FrequentlyAskedQuestion.objects.all(),
 		'backers': Order.objects.filter(paid=True).count(),
 		'pct': pct,
 		'pct_disp': (int(pct) if total else 0),
 		'total': (intWithCommas(int(total)) if total else '0'),
-		# 'nopay': (True if settings.STOP and (settings.DATE - datetime.datetime.now()).days < 0 else False),
-		# 'days': (settings.DATE - datetime.datetime.now()).days,
 		'rewards': sorted(Reward.objects.all(), key=lambda i: i.amount),
+		'sections': Section.objects.all(),
+		'photos': Gallery.objects.all()
 		}
 	return c
 
@@ -101,3 +102,19 @@ def payment_done(request):
 
 def payment_canceled(request):
     return render(request, 'canceled.html')
+
+
+# from .forms import PaystackInfoForm
+
+# def paystack_info(request):
+# 	if request.method == 'POST':
+# 		paystack_form = PaystackInfoForm(request.POST)
+# 		if paystack_form.is_valid():
+# 			paystack_form.save()
+# 			return render(request, 'paystack.html', 
+# 				{'email': paystack_form.email, 'phone_number': paystack_form.phone_number, 'amount': paystack_form.amount})
+# 		else:
+# 			return render(request, 'canceled.html')
+# 	else:
+# 		paystack_form = PaystackInfoForm()
+# 	return render(request, 'paystack_info.html', {'paystack_form': paystack_form})
