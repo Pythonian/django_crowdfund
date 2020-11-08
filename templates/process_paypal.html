@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Choose Payment Method{% endblock %}
+
+{% block content %}
+<div class="crowdfund-body-background">
+  <div class="crowdfund-carousel owl-carousel crowdfund-carousel-bg" id="crowdfund-carousel-bg">
+      <div class="crowdfund-slide" style="background-image: url({% static 'img/1.png' %});"></div>
+  </div>
+  <div class="crowdfund-background-overlay"></div>
+</div>
+
+<section class="crowdfund-section crowdfund-section-transparent">
+    <div class="crowdfund-section-content">
+        <div class="crowdfund-limit-width">
+            <div class="crowdfund-content-padding">
+                <div class="crowdfund-title">
+                    <h2>Choose Payment Method</h2>
+                    <div class="crowdfund-underline"></div>
+                </div>
+                <div class="crowdfund-content">
+                    <div class="crowdfund-row">
+                        <div class="crowdfund-col crowdfund-col-12">
+                            <div class="crowdfund-row">
+                                <div class="crowdfund-tab">
+						            <div class="crowdfund-tab-header">
+						            	<a class="crowdfund-tab-link" href="#">Pay with Paypal</a>
+						            	<a class="crowdfund-tab-link" href="#">Pay with Paystack</a>
+						            </div>
+						            <div class="crowdfund-tab-container">
+						                <div class="crowdfund-tab-content">
+						                	<p>You'll be redirected to the Paypal platform to complete your payment.</p>
+										    {{ paypal_form.render }}
+						                </div>
+						                <div class="crowdfund-tab-content">
+						                	<p>Hol' up!</p>
+						                </div>
+						            </div>
+						        </div>
+						        <div class="crowdfund-content-footer crowdfund-text-center">
+				                    <a class="crowdfund-button crowdfund-button-big crowdfund-mobile-fullwidth" href="{% url 'home' %}">
+				                        Abort Payment!
+				                    </a>
+				                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

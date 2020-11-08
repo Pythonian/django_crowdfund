@@ -31,8 +31,13 @@ INSTALLED_APPS = [
     'crowdfund',
 
     # 'paystack',
+    'paypal.standard.ipn', # new
     'imagekit',
 ]
+
+# new paypal
+PAYPAL_RECEIVER_EMAIL = 'wwibf-merch@gmail.com'
+PAYPAL_TEST = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,18 +130,18 @@ STATICFILES_DIRS = [
 
 # Braintree settings
 
-BRAINTREE_MERCHANT_ID = os.getenv('BRAINTREE_MERCHANT_ID')
-BRAINTREE_PUBLIC_KEY = os.getenv('BRAINTREE_PUBLIC_KEY')
-BRAINTREE_PRIVATE_KEY = os.getenv('BRAINTREE_PRIVATE_KEY')
+# BRAINTREE_MERCHANT_ID = os.getenv('BRAINTREE_MERCHANT_ID')
+# BRAINTREE_PUBLIC_KEY = os.getenv('BRAINTREE_PUBLIC_KEY')
+# BRAINTREE_PRIVATE_KEY = os.getenv('BRAINTREE_PRIVATE_KEY')
 
-import braintree
+# import braintree
 
-BRAINTREE_CONF = braintree.Configuration(
-    braintree.Environment.Sandbox,
-    BRAINTREE_MERCHANT_ID,
-    BRAINTREE_PUBLIC_KEY,
-    BRAINTREE_PRIVATE_KEY
-)
+# BRAINTREE_CONF = braintree.Configuration(
+#     braintree.Environment.Sandbox,
+#     BRAINTREE_MERCHANT_ID,
+#     BRAINTREE_PUBLIC_KEY,
+#     BRAINTREE_PRIVATE_KEY
+# )
 
 # Goal amount (int) that you are trying to raise.
 GOAL = 25000

@@ -1,15 +1,19 @@
-import braintree
+# import braintree
 import datetime
 from django.db.models import Sum
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from decimal import Decimal
+from paypal.standard.forms import PayPalPaymentsForm
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Reward, Order, FrequentlyAskedQuestion, Section, Gallery
 from .forms import OrderCreateForm
 
 
 # instantiate Braintree payment gateway
-gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
+# gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
 
 
 def intWithCommas(x):
@@ -60,46 +64,72 @@ def reward(request, id):
 				  'reward.html',
 				  {'form': form, 'reward': reward})
 
+# Using Braintree
+
+# def payment_process(request):
+#     order_id = request.session.get('order_id')
+#     order = get_object_or_404(Order, id=order_id)
+#     total_cost = order.get_cost()
+
+#     if request.method == 'POST':
+#         # retrieve nonce to generate a new transaction
+#         nonce = request.POST.get('payment_method_nonce', None)
+#         # create and submit transaction
+#         result = gateway.transaction.sale({
+#             'amount': f'{total_cost:.2f}',
+#             'payment_method_nonce': nonce,
+#             'options': {
+#                 # transaction automatically submitted for settlement.
+#                 'submit_for_settlement': True
+#             }
+#         })
+#         if result.is_success:
+#             # mark the order as paid
+#             order.paid = True
+#             # store the unique transaction id
+#             order.braintree_id = result.transaction.id
+#             order.save()
+#             return redirect('payment_done')
+#         else:
+#             return redirect('payment_canceled')
+#     else:
+#         # generate token
+#         client_token = gateway.client_token.generate()
+#         return render(request,
+#                       'payment.html',
+#                       {'order': order,
+#                        'client_token': client_token})
+
+# Using Paystack
 
 def payment_process(request):
     order_id = request.session.get('order_id')
     order = get_object_or_404(Order, id=order_id)
-    total_cost = order.get_cost()
+    host = request.get_host()
 
-    if request.method == 'POST':
-        # retrieve nonce to generate a new transaction
-        nonce = request.POST.get('payment_method_nonce', None)
-        # create and submit transaction
-        result = gateway.transaction.sale({
-            'amount': f'{total_cost:.2f}',
-            'payment_method_nonce': nonce,
-            'options': {
-                # transaction automatically submitted for settlement.
-                'submit_for_settlement': True
-            }
-        })
-        if result.is_success:
-            # mark the order as paid
-            order.paid = True
-            # store the unique transaction id
-            order.braintree_id = result.transaction.id
-            order.save()
-            return redirect('payment_done')
-        else:
-            return redirect('payment_canceled')
-    else:
-        # generate token
-        client_token = gateway.client_token.generate()
-        return render(request,
-                      'payment.html',
-                      {'order': order,
-                       'client_token': client_token})
+    paypal_dict = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': '%.2f' % order.get_cost().quantize(
+            Decimal('.01')),
+        'item_name': 'Order {}'.format(order.reward.name),
+        'invoice': str(order.id),
+        'currency_code': 'USD',
+        'notify_url': 'http://{}{}'.format(host,
+                                           reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,
+                                           reverse('payment_done')),
+        'cancel_return': 'http://{}{}'.format(host,
+                                              reverse('payment_canceled')),
+    }
 
+    paypal_form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request, 'process_paypal.html', {'order': order, 'paypal_form': paypal_form})
 
+@csrf_exempt
 def payment_done(request):
     return render(request, 'done.html')
 
-
+@csrf_exempt
 def payment_canceled(request):
     return render(request, 'canceled.html')
 
