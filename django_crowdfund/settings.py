@@ -30,14 +30,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crowdfund',
 
-    # 'paystack',
-    'paypal.standard.ipn', # new
+    'paystack.frameworks.django',
+    'paypal.standard.ipn',
     'imagekit',
 ]
 
 # new paypal
-PAYPAL_RECEIVER_EMAIL = 'wwibf-merch@gmail.com'
-PAYPAL_TEST = True
+PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
+PAYPAL_TEST = os.getenv("PAYPAL_TEST")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +63,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'paystack': 'paystack.frameworks.django.templatetags.paystack',
+            },
         },
     },
 ]
@@ -146,5 +149,15 @@ STATICFILES_DIRS = [
 # Goal amount (int) that you are trying to raise.
 GOAL = 25000
 
-# PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
-# PAYSTACK_SCRET_KEY = os.getenv('PAYSTACK_SCRET_KEY')
+PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
+
+AUTHOR_EMAIL = os.getenv('AUTHOR_EMAIL')
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_HOST_USER = '93dad87dab41b7'
+# EMAIL_HOST_PASSWORD = '3d2294bed0d58f'
+# EMAIL_PORT = '2525'
+#EMAIL_USE_TLS

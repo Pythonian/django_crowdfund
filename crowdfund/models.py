@@ -1,3 +1,4 @@
+import uuid
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
@@ -6,6 +7,7 @@ from pilkit.processors import ResizeToFill
 
 
 class Reward(models.Model):
+	# id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	name = models.CharField(max_length=255)
 	amount = models.DecimalField(max_digits=8, decimal_places=2)
 

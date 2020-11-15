@@ -11,6 +11,7 @@ urlpatterns = [
     path('done/', payment_done, name='payment_done'),
     path('canceled/', payment_canceled, name='payment_canceled'),
     path('paypal/', include('paypal.standard.ipn.urls')), # new
+    # path('paystack/', include(('paystack.urls', 'paystack'), namespace='paystack')),
     path('', home, name='home'),
 
     # path('pay-with-paystack', include(('paystack.urls', 'paystack'), namespace='paystack')),

@@ -1,0 +1,17 @@
+Wow, {{ order.name }}. Congratulations, you made it to the hall of fame.
+
+Thank you so much for chipping in to support the crowdfunding of "When Will I Be Famous?" (WWIBF).
+
+From here we could see that you have supported this campaign with the "{{ order.reward.name }}" Level with a support of ${{ order.reward.amount }}.
+
+Please note that you will get these perks on or before the end of March 2021 when all fulfillments would have been processed. We will notify you when this is being done.
+
+If you have any inquiry regarding this, please kindly reply this email.
+
+If you don't mind spreading the word for this campaign, kindly tell your friends you chipped in for us or also share about our campaign on social media!
+
+Once again, from the WWIBF Team, we say a big thank you!
+
+Cheers!
+Opeyemi.
+www.whenwillibefamous.com

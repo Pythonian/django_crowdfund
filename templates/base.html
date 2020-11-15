@@ -73,5 +73,20 @@
             var $gallery = new SimpleLightbox('.crowdfund-portfolio-item a', {});
         })();
     </script>
+    <script type="text/javascript">
+      $("#fund-countdown")
+      .countdown("2020/12/31", function(event) {
+        $(this).html(
+          event.strftime(''
+            //'%D days %H:%M:%S'
+           + '<span>%D</span> days  '
+           + '<span>%H</span> hr  '
+           + '<span>%M</span> min  '
+           + '<span>%S</span> sec'
+            )
+        );
+      });
+    </script>
+    {% block paystack %}{% endblock %}
 </body>
 </html>

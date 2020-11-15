@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<div class="crowdfund-body-background">
+  <div class="crowdfund-carousel owl-carousel crowdfund-carousel-bg" id="crowdfund-carousel-bg">
+      <div class="crowdfund-slide" style="background-image: url({% static 'img/1.png' %});"></div>
+  </div>
+  <div class="crowdfund-background-overlay"></div>
+</div>
+
+<section class="crowdfund-section">
+  <div class="crowdfund-section-content">
+      <div class="crowdfund-limit-width">
+          <div class="crowdfund-title">
+              <h2>Page Not Found</h2>
+              <div class="crowdfund-underline"></div>
+          </div>
+          <div class="crowdfund-post crowdfund-block-light">
+              <div class="crowdfund-post-container-big crowdfund-text-large">
+                  <div class="crowdfund-limit-width crowdfund-900">
+                  	  <p>
+                        You've stumbled on a page that doesn't exist on this site.
+                      </p>
+                      <a href="{% url 'home' %}">Return Home</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% endblock %}
