@@ -35,9 +35,10 @@ INSTALLED_APPS = [
     'imagekit',
 ]
 
-# new paypal
-PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
-PAYPAL_TEST = os.getenv("PAYPAL_TEST")
+#PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
+PAYPAL_RECEIVER_EMAIL = 'McCartneysystems@gmail.com'
+#PAYPAL_TEST = os.getenv('PAYPAL_TEST')
+PAYPAL_TEST = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -154,10 +155,18 @@ PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
 
 AUTHOR_EMAIL = os.getenv('AUTHOR_EMAIL')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# EMAIL_HOST = 'smtp.mailtrap.io'
-# EMAIL_HOST_USER = '93dad87dab41b7'
-# EMAIL_HOST_PASSWORD = '3d2294bed0d58f'
-# EMAIL_PORT = '2525'
-#EMAIL_USE_TLS
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '93dad87dab41b7'
+EMAIL_HOST_PASSWORD = '3d2294bed0d58f'
+EMAIL_PORT = '2525'
+EMAIL_USE_TLS = True
+
+SECURE_HSTS_SECONDS = 2592000
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_HSTS_PRELOAD = True

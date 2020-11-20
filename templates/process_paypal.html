@@ -25,10 +25,19 @@
                             <div class="crowdfund-row">
                                 <div class="crowdfund-tab">
 						            <div class="crowdfund-tab-header">
+						            	<a class="crowdfund-tab-link" href="#">Pay via Bank Transfer</a>
 						            	<a class="crowdfund-tab-link" href="#">Pay with Paypal</a>
 						            	<a class="crowdfund-tab-link" href="#">Pay with Paystack</a>
 						            </div>
 						            <div class="crowdfund-tab-container">
+						                <div class="crowdfund-tab-content">
+						                	<p>You can easily make a direct Bank Transfer to my account.</p>
+										    <p>
+										        Obisesan Opeyemi Philip<br>
+										        <b>0008206050</b> <br>
+										        GTBank
+										    </p>
+						                </div>
 						                <div class="crowdfund-tab-content">
 						                	<p>You'll be redirected to the Paypal platform to complete your payment.</p>
 										    {{ paypal_form.render }}
@@ -36,14 +45,14 @@
 						                <div class="crowdfund-tab-content">
 						                	<form>
                                               <script src="https://js.paystack.co/v1/inline.js"></script>
-                                              <button type="button" onclick="payWithPaystack()"> Pay With Paystack </button> 
+                                              <button type="button" onclick="payWithPaystack()"> Pay With Paystack </button>
                                             </form>
 						                </div>
 						            </div>
 						        </div>
 						        <div class="crowdfund-content-footer crowdfund-text-center">
 				                    <a class="crowdfund-button crowdfund-button-big crowdfund-mobile-fullwidth" href="{% url 'home' %}">
-				                        Abort Payment!
+				                        Abort Payment
 				                    </a>
 				                </div>
                             </div>
@@ -60,9 +69,10 @@
 <script>
   function payWithPaystack(){
     var handler = PaystackPop.setup({
-      key: 'pk_test_c0132778c63a1edaea68bcb63104d512c45772a6',
+      key: '{{ paystack_key }}',
       email: '{{ order.email }}',
-      amount: {{ order.reward.amount }} * 360 * 100,
+      amount: {{ order.reward.amount }} * 460 * 100,
+      //amount: 10000,
       currency: 'NGN',
       reference: ''+Math.floor((Math.random() * 1000000000) + 1),
       // metadata: {
@@ -75,10 +85,10 @@
       //    ]
       // },
       callback: function(response){
-          alert('Payment complete! Reference: ' + response.reference);
+          alert('Thank you. Your donation was a success! Reference: ' + response.reference);
       },
       onClose: function(){
-          alert('Transaction was not completed, window closed.');
+          alert('Your transaction was either aborted or not completed, this window would be closed.');
       }
     });
     handler.openIframe();

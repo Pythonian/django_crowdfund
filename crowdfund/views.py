@@ -114,16 +114,16 @@ def payment_process(request):
         'item_name': 'Order {}'.format(order.reward.name),
         'invoice': str(order.id),
         'currency_code': 'USD',
-        'notify_url': 'http://{}{}'.format(host,
+        'notify_url': 'https://{}{}'.format(host,
                                            reverse('paypal-ipn')),
-        'return_url': 'http://{}{}'.format(host,
+        'return_url': 'https://{}{}'.format(host,
                                            reverse('payment_done')),
-        'cancel_return': 'http://{}{}'.format(host,
+        'cancel_return': 'https://{}{}'.format(host,
                                               reverse('payment_canceled')),
     }
 
-    paypal_form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request, 'process_paypal.html', {'order': order, 'paypal_form': paypal_form})
+    paypal_form = PayPalPaymentsForm(initial=paypal_dict, button_type="donate")
+    return render(request, 'process_paypal.html', {'order': order, 'paypal_form': paypal_form, 'paystack_key': settings.PAYSTACK_PUBLIC_KEY})
 
 @csrf_exempt
 def payment_done(request):
@@ -141,7 +141,7 @@ def payment_canceled(request):
 # 		paystack_form = PaystackInfoForm(request.POST)
 # 		if paystack_form.is_valid():
 # 			paystack_form.save()
-# 			return render(request, 'paystack.html', 
+# 			return render(request, 'paystack.html',
 # 				{'email': paystack_form.email, 'phone_number': paystack_form.phone_number, 'amount': paystack_form.amount})
 # 		else:
 # 			return render(request, 'canceled.html')
