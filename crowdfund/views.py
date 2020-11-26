@@ -1,5 +1,5 @@
 # import braintree
-import datetime
+# import datetime
 from django.db.models import Sum
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
@@ -7,6 +7,7 @@ from django.urls import reverse
 from decimal import Decimal
 from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.crypto import get_random_string
 
 from .models import Reward, Order, FrequentlyAskedQuestion, Section, Gallery
 from .forms import OrderCreateForm
@@ -123,7 +124,17 @@ def payment_process(request):
     }
 
     paypal_form = PayPalPaymentsForm(initial=paypal_dict, button_type="donate")
-    return render(request, 'process_paypal.html', {'order': order, 'paypal_form': paypal_form, 'paystack_key': settings.PAYSTACK_PUBLIC_KEY})
+    paystack_amount = int(order.get_cost() * 476 * 100)
+    paystack_ref = None
+    if not paystack_ref:
+        paystack_ref = get_random_string().upper()
+        order.braintree_id = paystack_ref
+        order.save()
+    paystack_redirect_url = "{}?amount={}".format(
+        reverse('paystack:verify_payment', args=[paystack_ref]), paystack_amount)
+    return render(request, 'process_paypal.html',
+        {'order': order, 'paypal_form': paypal_form, 'paystack_key': settings.PAYSTACK_PUBLIC_KEY,
+        'paystack_amount': paystack_amount, 'paystack_ref': paystack_ref, 'paystack_redirect_url': paystack_redirect_url})
 
 @csrf_exempt
 def payment_done(request):

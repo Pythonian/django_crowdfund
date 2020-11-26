@@ -9,7 +9,7 @@
         </div>
         <div class="crowdfund-background-overlay"></div>
     </div>
-    
+
     <!-- Landing -->
     <section class="crowdfund-section-home crowdfund-section" id="home">
         <div class="crowdfund-home-content-wrapper">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="crowdfund-button-container">
                     <a class="crowdfund-icon crowdfund-icon-color scrollto" href="{% url 'home' %}#welcome"><i class="fa fa-long-arrow-down"></i></a>
-                </div>            
+                </div>
             </div>
         </div>
     </section>
@@ -39,7 +39,7 @@
                     </p>
                     <div>
                         <p class="crowdfund-large">
-                            <strong>When Will I Be Famous?</strong> is a collection of 15 short stories — mostly set in Nigeria with a trove of themes like Football Trafficking, Politics, Criminal Justice System, Mental Health, Migration to Domestic Violence, Religion and Politics. 
+                            <strong>When Will I Be Famous?</strong> is a collection of 15 short stories — mostly set in Nigeria with a trove of themes like Football Trafficking, Politics, Criminal Justice System, Mental Health, Migration to Domestic Violence, Religion and Politics.
                         </p>
                         <p class="crowdfund-large">
                             The tales teeter along the excruciating path of the dreamer — floats in the canal of the lost, delves into the illusion that the mind can be subsumed in and still manages to emerge on the other side of triumph — but not without scars. 
@@ -123,7 +123,7 @@
                         <div class="crowdfund-post-container">
                             <h5 class="strong">{{ section.title }}</h5>
                             <div class="crowdfund-underline crowdfund-underline-small"></div>
-                            {{ section.content|linebreaks }}
+                            {{ section.content|linebreaks|urlize }}
                         </div>
                     </div>
                     {% endfor %}
@@ -185,7 +185,7 @@
                     <div class="crowdfund-row">
                         <a href="{{ r.get_absolute_url }}">
                             <span class="crowdfund-column crowdfund-column-cost">${{ r.amount }}</span>
-                            <span class="crowdfund-column crowdfund-column-description"> 
+                            <span class="crowdfund-column crowdfund-column-description">
                                 <h5>{{ r.name }}</h5>
                                 {% for perk in r.perks.all %}
                                 <p class="fg-color-gray-light">{{ perk }}</p>

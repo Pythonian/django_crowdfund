@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Payment canceled{% endblock %}
+
+{% block content %}
+<div class="crowdfund-body-background">
+  <div class="crowdfund-carousel owl-carousel crowdfund-carousel-bg" id="crowdfund-carousel-bg">
+      <div class="crowdfund-slide" style="background-image: url({% static 'img/1.png' %});"></div>
+  </div>
+  <div class="crowdfund-background-overlay"></div>
+</div>
+
+<section class="crowdfund-section">
+  <div class="crowdfund-section-content">
+      <div class="crowdfund-limit-width">
+          <div class="crowdfund-title">
+              <h2>Payment Canceled</h2>
+              <div class="crowdfund-underline"></div>
+          </div>
+          <div class="crowdfund-post crowdfund-block-light">
+              <div class="crowdfund-post-container-big crowdfund-text-large">
+                  <div class="crowdfund-limit-width crowdfund-900">
+                  	  <h4>Your payment has not been processed</h4>
+                      <p>
+                        Your payment was either aborted or not successfully processed.
+                      </p>
+                      <a href="{% url 'home' %}#statistics">Back Home</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% endblock %}
