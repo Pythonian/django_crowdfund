@@ -155,14 +155,10 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_HSTS_PRELOAD = True
 
-CELERY_BROKER_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+CELERY_BROKER_URL = os.getenv('REDIS_URL')
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-
-# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 django_heroku.settings(locals())

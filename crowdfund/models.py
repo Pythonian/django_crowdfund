@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Reward(models.Model):
@@ -30,8 +31,8 @@ class Order(models.Model):
 	name = models.CharField(max_length=255)
 	address = models.CharField(max_length=255)
 	country = models.CharField(max_length=255)
-	phone_number = models.IntegerField('Phone Number (Optional)', 
-	blank=True, null=True)
+	# phone_number = models.IntegerField('Phone Number (Optional)', 
+	# blank=True, null=True)
 	reward = models.ForeignKey(Reward, on_delete=models.CASCADE)
 	note = models.TextField(blank=True)
 	email = models.EmailField(verbose_name='Email')
@@ -85,7 +86,6 @@ class Section(models.Model):
 	def __str__(self):
 		return self.title	
 
-from ckeditor_uploader.fields import RichTextUploadingField
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
