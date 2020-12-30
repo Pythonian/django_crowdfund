@@ -1266,23 +1266,6 @@
     },
     {
       "model": "crowdfund.order",
-      "pk": 93,
-      "fields": {
-        "name": "Theresa Ajayi",
-        "address": "Omogba Phase II",
-        "country": "Nigeria",
-        "phone_number": 7062299016,
-        "reward": 4,
-        "note": "",
-        "email": "prontomaster@gmail.com",
-        "created": "2020-12-16T06:22:50.672Z",
-        "paid": true,
-        "braintree_id": "",
-        "paystack_id": "NGDSQVWDQZXR"
-      }
-    },
-    {
-      "model": "crowdfund.order",
       "pk": 94,
       "fields": {
         "name": "BOI President 1",
