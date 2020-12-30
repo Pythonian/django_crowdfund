@@ -1265,57 +1265,6 @@
       }
     },
     {
-      "model": "crowdfund.order",
-      "pk": 94,
-      "fields": {
-        "name": "BOI President 1",
-        "address": "Lagos",
-        "country": "Nigeria",
-        "phone_number": 7062299016,
-        "reward": 2,
-        "note": "",
-        "email": "prontomaster@gmail.com",
-        "created": "2020-12-19T11:19:04.581Z",
-        "paid": true,
-        "braintree_id": "",
-        "paystack_id": ""
-      }
-    },
-    {
-      "model": "crowdfund.order",
-      "pk": 95,
-      "fields": {
-        "name": "BOI President 2",
-        "address": "Lagos",
-        "country": "Nigeria",
-        "phone_number": 7062299016,
-        "reward": 3,
-        "note": "",
-        "email": "prontomaster@gmail.com",
-        "created": "2020-12-19T11:19:36.356Z",
-        "paid": true,
-        "braintree_id": "",
-        "paystack_id": ""
-      }
-    },
-    {
-      "model": "crowdfund.order",
-      "pk": 96,
-      "fields": {
-        "name": "Anonymous",
-        "address": "Lagos",
-        "country": "Nigeria",
-        "phone_number": null,
-        "reward": 3,
-        "note": "",
-        "email": "grandsparkles@yahoo.com",
-        "created": "2020-12-20T06:05:53.827Z",
-        "paid": false,
-        "braintree_id": "",
-        "paystack_id": "PNPALBXXNAGD"
-      }
-    },
-    {
       "model": "crowdfund.frequentlyaskedquestion",
       "pk": 1,
       "fields": {
