@@ -1,20 +1,18 @@
 # import braintree
-# import datetime
-from django.db.models import Sum
-from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
 from decimal import Decimal
-from paypal.standard.forms import PayPalPaymentsForm
-from django.views.decorators.csrf import csrf_exempt
+
+from django.conf import settings
+from django.db.models import Sum
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.crypto import get_random_string
+from django.views.decorators.csrf import csrf_exempt
+from paypal.standard.forms import PayPalPaymentsForm
 
-from .models import Reward, Order, FrequentlyAskedQuestion, Section, Gallery
-from .forms import OrderCreateForm
-
-
-# instantiate Braintree payment gateway
-# gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
+from .forms import ContactForm, OrderCreateForm
+from .models import FrequentlyAskedQuestion, Gallery, Order, Reward, Section, Post
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 def intWithCommas(x):
@@ -31,7 +29,7 @@ def get_context():
 	total = Order.objects.filter(paid=True).aggregate(Sum('reward__amount'))['reward__amount__sum']
 	pct = ((100 * float(total) / float(settings.GOAL)) if total else 0)
 	c = {
-		'goal': intWithCommas(settings.GOAL),
+		'goal': settings.GOAL,
 		'faqs': FrequentlyAskedQuestion.objects.all(),
 		'backers': Order.objects.filter(paid=True).count(),
 		'pct': pct,
@@ -45,11 +43,38 @@ def get_context():
 
 
 def home(request):
-	return render(request, 'home.html', get_context())
+	total = Order.objects.filter(paid=True).aggregate(Sum('reward__amount'))['reward__amount__sum']
+	pct = ((100 * float(total) / float(settings.GOAL)) if total else 0)
+	if request.method == 'POST':
+		form = ContactForm(request.POST)
+		if form.is_valid():
+			fullname = form.cleaned_data['fullname']
+			subject = form.cleaned_data['subject']
+			from_email = form.cleaned_data['from_email']
+			message = form.cleaned_data['message']
+			try:
+				send_mail(subject, message, from_email, ['authorphilips@gmail.com'])
+			except BadHeaderError:
+				return HttpResponse('Invalid header found.')
+			return redirect('home')
+	form = ContactForm()
+	context = {
+		'goal': settings.GOAL,
+		'faqs': FrequentlyAskedQuestion.objects.all(),
+		'backers': Order.objects.filter(paid=True).count(),
+		'pct': pct,
+		'pct_disp': (int(pct) if total else 0),
+		'total': (intWithCommas(int(total)) if total else '0'),
+		'rewards': sorted(Reward.objects.all(), key=lambda i: i.amount),
+		'sections': Section.objects.all(),
+		'photos': Gallery.objects.all(),
+		'form': form,
+		}
+	return render(request, 'home.html', context)
 
 
-def reward(request, id):
-	reward = get_object_or_404(Reward, id=id)
+def reward(request, slug):
+	reward = get_object_or_404(Reward, slug=slug)
 	if request.method == 'POST':
 		form = OrderCreateForm(request.POST)
 		if form.is_valid():
@@ -57,7 +82,6 @@ def reward(request, id):
 			order.reward = reward
 			order.save()
 			request.session['order_id'] = order.id
-			# redirect for payment
 			return redirect(reverse('payment_process'))
 	else:
 		form = OrderCreateForm()
@@ -65,7 +89,9 @@ def reward(request, id):
 				  'reward.html',
 				  {'form': form, 'reward': reward})
 
-# Using Braintree
+
+# Instantiate Braintree payment gateway
+# gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
 
 # def payment_process(request):
 #     order_id = request.session.get('order_id')
@@ -101,7 +127,6 @@ def reward(request, id):
 #                       {'order': order,
 #                        'client_token': client_token})
 
-# Using Paystack
 
 def payment_process(request):
     order_id = request.session.get('order_id')
@@ -122,40 +147,40 @@ def payment_process(request):
         'cancel_return': 'https://{}{}'.format(host,
                                               reverse('payment_canceled')),
     }
-
     paypal_form = PayPalPaymentsForm(initial=paypal_dict, button_type="donate")
+
     paystack_amount = int(order.get_cost() * 476 * 100)
     paystack_ref = None
     if not paystack_ref:
         paystack_ref = get_random_string().upper()
-        order.braintree_id = paystack_ref
+        order.paystack_id = paystack_ref
         order.save()
     paystack_redirect_url = "{}?amount={}".format(
         reverse('paystack:verify_payment', args=[paystack_ref]), paystack_amount)
-    return render(request, 'process_paypal.html',
-        {'order': order, 'paypal_form': paypal_form, 'paystack_key': settings.PAYSTACK_PUBLIC_KEY,
-        'paystack_amount': paystack_amount, 'paystack_ref': paystack_ref, 'paystack_redirect_url': paystack_redirect_url})
+
+    return render(request, 'process_payment.html',
+        		 {'order': order, 'paypal_form': paypal_form, 
+				 'paystack_key': settings.PAYSTACK_PUBLIC_KEY,
+        		 'paystack_amount': paystack_amount,
+				 'paystack_redirect_url': paystack_redirect_url})
+
 
 @csrf_exempt
 def payment_done(request):
-    return render(request, 'done.html')
+	order_id = request.session.get('order_id')
+	order = get_object_or_404(Order, id=order_id)
+	return render(request, 'done.html', {'order': order})
+
 
 @csrf_exempt
 def payment_canceled(request):
-    return render(request, 'canceled.html')
+	return render(request, 'canceled.html')
 
 
-# from .forms import PaystackInfoForm
+def post(request, post_slug):
+	post = get_object_or_404(Post, slug=post_slug)
+	return render(request, 'post.html', {'post': post})
 
-# def paystack_info(request):
-# 	if request.method == 'POST':
-# 		paystack_form = PaystackInfoForm(request.POST)
-# 		if paystack_form.is_valid():
-# 			paystack_form.save()
-# 			return render(request, 'paystack.html',
-# 				{'email': paystack_form.email, 'phone_number': paystack_form.phone_number, 'amount': paystack_form.amount})
-# 		else:
-# 			return render(request, 'canceled.html')
-# 	else:
-# 		paystack_form = PaystackInfoForm()
-# 	return render(request, 'paystack_info.html', {'paystack_form': paystack_form})
+
+def contact_success(request):
+	return HttpResponse('Success! Thank you for your message.')

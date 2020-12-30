@@ -5,12 +5,15 @@ from .models import Order
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'email', 'address', 'country']
+        fields = ['name', 'email', 'address', 'country', 'phone_number']
 
 
-# from .models import PaystackInfo
-
-# class PaystackInfoForm(forms.ModelForm):
-#     class Meta:
-#         model = PaystackInfo
-#         fields = '__all__'
+class ContactForm(forms.Form):
+    fullname = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Your Name'}), required=True)
+    subject = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': 'Subject'}), required=True)
+    from_email = forms.EmailField(widget=forms.EmailInput(
+        attrs={'placeholder': 'Subject'}), required=True)
+    message = forms.CharField(widget=forms.Textarea(
+        attrs={'placeholder': 'Your message'}), required=True)

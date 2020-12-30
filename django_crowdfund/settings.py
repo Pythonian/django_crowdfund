@@ -1,25 +1,16 @@
+import django_heroku
 import os
 from dotenv import load_dotenv
 load_dotenv()
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+DEBUG = int(os.getenv('DEBUG'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.getenv("DEBUG"))
-
-ALLOWED_HOSTS = ['127.0.0.1:8000', '127.0.0.1', 'www.whenwillibefamous.com', 'whenwillibefamous.com']
-
-
-# Application definition
+ALLOWED_HOSTS = ['127.0.0.1', 'www.whenwillibefamous.com', 'whenwillibefamous.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,11 +24,11 @@ INSTALLED_APPS = [
     'paystack.frameworks.django',
     'paypal.standard.ipn',
     'imagekit',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
-#PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_RECEIVER_EMAIL = 'McCartneysystems@gmail.com'
-#PAYPAL_TEST = os.getenv('PAYPAL_TEST')
 PAYPAL_TEST = False
 
 MIDDLEWARE = [
@@ -73,19 +64,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_crowdfund.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,10 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -115,10 +95,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -131,6 +107,12 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+# /media/blog/image.jpg
+CKEDITOR_UPLOAD_PATH = 'blog/'
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 # Braintree settings
 
@@ -147,26 +129,40 @@ STATICFILES_DIRS = [
 #     BRAINTREE_PRIVATE_KEY
 # )
 
-# Goal amount (int) that you are trying to raise.
-GOAL = 25000
+# Amount that you are trying to raise.
+GOAL = '25000'
 
 PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
 PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
 
 AUTHOR_EMAIL = os.getenv('AUTHOR_EMAIL')
+DEFAULT_FROM_EMAIL = os.getenv('AUTHOR_EMAIL')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '93dad87dab41b7'
-EMAIL_HOST_PASSWORD = '3d2294bed0d58f'
-EMAIL_PORT = '2525'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
 EMAIL_USE_TLS = True
 
-SECURE_HSTS_SECONDS = 2592000
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_HSTS_PRELOAD = True
+if not DEBUG:
+    SECURE_HSTS_SECONDS = 2592000
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_HSTS_PRELOAD = True
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# import dj_database_url
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+django_heroku.settings(locals())

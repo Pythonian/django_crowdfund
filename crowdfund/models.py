@@ -1,21 +1,20 @@
-import uuid
 from django.conf import settings
-from django.urls import reverse
 from django.db import models
+from django.urls import reverse
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
 
 
 class Reward(models.Model):
-	# id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	name = models.CharField(max_length=255)
+	slug = models.SlugField(max_length=50, blank=True)
 	amount = models.DecimalField(max_digits=8, decimal_places=2)
 
 	def __str__(self):
 		return self.name
 
 	def get_absolute_url(self):
-		return reverse('reward', args=[self.id])
+		return reverse('reward', args=[self.slug])
 
 
 class Perk(models.Model):
@@ -31,26 +30,21 @@ class Order(models.Model):
 	name = models.CharField(max_length=255)
 	address = models.CharField(max_length=255)
 	country = models.CharField(max_length=255)
+	phone_number = models.IntegerField('Phone Number (Optional)', 
+	blank=True, null=True)
 	reward = models.ForeignKey(Reward, on_delete=models.CASCADE)
 	note = models.TextField(blank=True)
 	email = models.EmailField(verbose_name='Email')
 	created = models.DateTimeField(auto_now_add=True)
 	paid = models.BooleanField(default=False)
 	braintree_id = models.CharField(max_length=150, blank=True)
+	paystack_id = models.CharField(max_length=150, blank=True)
 
 	class Meta:
 		ordering = ('-created',)
 
 	def __str__(self):
 		return f'Order {self.id}'
-
-	# def get_total_cost(self):
-	#     total_cost = sum(item.get_cost() for item in self.items.all())
-	#     return total_cost - total_cost * \
-	#         (self.discount / Decimal(100))
-
-	def __str__(self):
-		return self.name
 
 	def get_cost(self):
 		return self.reward.amount
@@ -91,13 +85,22 @@ class Section(models.Model):
 	def __str__(self):
 		return self.title	
 
-	
-# class PaystackInfo(models.Model):
-# 	full_name = models.CharField(max_length=150)
-# 	email = models.EmailField()
-# 	phone_number = models.CharField(max_length=20)
-# 	amount = models.IntegerField()
-# 	address = models.CharField(max_length=150)
+from ckeditor_uploader.fields import RichTextUploadingField
 
-# 	def __str__(self):
-# 		return self.full_name
+class Post(models.Model):
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(blank=True, max_length=255)
+    body = RichTextUploadingField()
+    image = models.ImageField(upload_to='images')
+    image_thumbnail = ImageSpecField(source='image',
+        processors=[ResizeToFill(700, 150)],
+        format='JPEG', options={'quality': 60})
+    draft = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('post', args=[str(self.slug)])

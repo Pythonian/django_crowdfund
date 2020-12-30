@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Reward, Order, Perk, FrequentlyAskedQuestion, FrequentlyAskedQuestionDescription, Gallery, Section
+
+from .models import (FrequentlyAskedQuestion, Post,
+                     FrequentlyAskedQuestionDescription, Gallery, Order, Perk,
+                     Reward, Section)
 
 
 class PerkInlineAdmin(admin.StackedInline):
@@ -10,6 +13,7 @@ class PerkInlineAdmin(admin.StackedInline):
 class RewardAdmin(admin.ModelAdmin):
     inlines = [PerkInlineAdmin]
     list_display = ['name', 'amount']
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class FrequentlyAskedQuestionDescriptionInline(admin.StackedInline):
@@ -25,7 +29,13 @@ class FrequentlyAskedQuestion(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['name', 'reward', 'paid']
+    list_display = ['name', 'reward', 'paid', 'created']
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['title', 'created']
+    prepopulated_fields = {'slug': ('title',)}
 
 admin.site.register(Gallery)
 admin.site.register(Section)

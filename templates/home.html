@@ -10,6 +10,31 @@
         <div class="crowdfund-background-overlay"></div>
     </div>
 
+    <header>
+        <div class="crowdfund-menu">
+            <div class="crowdfund-limit-width"><a class="crowdfund-menu-toggle" id="crowdfund-menu-toggle" href="#"></a></div>
+        </div>
+        <div class="crowdfund-menu-container" id="crowdfund-menu-container">
+            <div class="crowdfund-menu-scroll-wrapper">
+                <div class="crowdfund-menu-scroll">
+                    <div class="crowdfund-menu-scroll-container">
+                        <div class="crowdfund-menu-links">
+                            <ul class="crowdfund-menu-list">
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#welcome">About</a></li>
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#crowdfund-section-video">Trailer</a></li>
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#gallery">Gallery</a></li>
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#rewards">Rewards</a></li>
+                                <!-- <li class="crowdfund-menu-item"><a class="scrollto" href="#blog">Blog</a></li> -->
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#faq">F.A.Q</a></li>
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <!-- Landing -->
     <section class="crowdfund-section-home crowdfund-section" id="home">
         <div class="crowdfund-home-content-wrapper">
@@ -51,8 +76,21 @@
                     <div class="crowdfund-text-center crowdfund-content-footer">
                         <div class="crowdfund-row crowdfund-row-vmiddle">
                             <div class="crowdfund-col crowdfund-col-12">
-                                <a class="crowdfund-button crowdfund-mobile-fullwidth crowdfund-button-big scrollto" href="{% url 'home' %}#statistics">Support Campaign</a>
+                                <a class="crowdfund-button crowdfund-mobile-fullwidth crowdfund-button-big scrollto" href="{% url 'home' %}#rewards">Support Campaign</a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="crowdfund-text-center">
+                        <div class="crowdfund-icon-container">
+                            <a class="crowdfund-icon" href="https://www.facebook.com/When-Will-I-Be-Famous-108809237536417">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a class="crowdfund-icon" href="javascript:void(0);">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a class="crowdfund-icon" href="https://www.instagram.com/whenwillibefamous20/" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -81,7 +119,7 @@
                     <h4>Funding Goal</h4>
                     <div class="crowdfund-statistic-percent crowdfund-animated">
                         <strong class="crowdfund-statistic-percent-symbol"> $</strong>
-                        <span class="crowdfund-animated-counter" data-thousand-delimiter=",">25000</span>
+                        <span class="crowdfund-animated-counter" data-thousand-delimiter=",">{{ goal }}</span>
                     </div>
                     <div class="crowdfund-progress crowdfund-fullwidth">
                         <div class="crowdfund-progress-percent">
@@ -110,8 +148,8 @@
         </div>
     </section>
 
-    <!-- Blog -->
-    <section class="crowdfund-section crowdfund-section-blog" id="blog2">
+    <!-- Section -->
+    <section class="crowdfund-section crowdfund-section-blog">
         <div class="crowdfund-section-content">
             <div class="crowdfund-limit-width">
                 <div class="crowdfund-content-padding crowdfund-content-padding-vert-small">
@@ -133,7 +171,7 @@
     </section>
 
     <!-- Gallery -->
-    <section class="crowdfund-section crowdfund-section-portfolio crowdfund-section-color id="gallery">
+    <section class="crowdfund-section crowdfund-section-portfolio crowdfund-section-color"  id="gallery">
         <div class="crowdfund-section-content">
             <div class="crowdfund-limit-width">
                 <div class="crowdfund-title">
@@ -250,4 +288,46 @@
             </div>
         </div>
     </section>
+
+    <!-- Contact Us -->
+    <section class="crowdfund-section crowdfund-section-light crowdfund-section-contacts" id="contact">
+        <div class="crowdfund-section-content">
+            <div class="crowdfund-limit-width">
+                <div class="crowdfund-content-padding">
+                    <div class="crowdfund-title">
+                        <h2>Drop us a line</h2>
+                        <div class="crowdfund-underline"></div>
+                    </div>
+                    <form action="." method="post">
+                        {% csrf_token %}
+                        <div class="crowdfund-table crowdfund-table-contacts">
+                            <div class="crowdfund-row">
+                                <div class="crowdfund-col crowdfund-col-6 crowdfund-col-phone-12">
+                                    <!-- <input type="text" name="crowdfund-name" placeholder="Your name" required="required" />
+                                    <input type="email" name="crowdfund-email" placeholder="yourmail@example.com" required="required" />
+                                    <input type="text" name="crowdfund-subject" placeholder="Subject" required="required" /> -->
+                                    {{ form.fullname }}
+                                    {{ form.subject }}
+                                    {{ form.from_email }}
+                                </div>
+                                <div class="crowdfund-col crowdfund-col-6 crowdfund-col-phone-12">
+                                    <!-- <textarea placeholder="Message" name="crowdfund-message" required="required"></textarea> -->
+                                    {{ form.message }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crowdfund-table crowdfund-content-footer">
+                            <div class="crowdfund-column crowdfund-fullwidth">
+                                <p class="italic">We do not share your personal information. All fields are required.</p>
+                            </div>
+                            <div class="crowdfund-column">
+                                <button class="crowdfund-button crowdfund-mobile-fullwidth" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 {% endblock %}
