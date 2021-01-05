@@ -6,7 +6,7 @@ from crowdfund.views import home, reward, payment_process, payment_done, payment
 
 urlpatterns = [
     path('wwibfadmin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    #path('ckeditor/', include('ckeditor_uploader.urls')),
     path('payment/', payment_process, name='payment_process'),
     path('done/', payment_done, name='payment_done'),
     path('canceled/', payment_canceled, name='payment_canceled'),
