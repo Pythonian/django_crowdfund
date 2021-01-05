@@ -1,4 +1,4 @@
-import django_heroku
+import dj_database_url
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -24,11 +24,13 @@ INSTALLED_APPS = [
     'paystack.frameworks.django',
     'paypal.standard.ipn',
     'imagekit',
-    'ckeditor',
-    'ckeditor_uploader',
+    #'ckeditor',
+    #'ckeditor_uploader',
+    'storages',
+    #'compressor',
 ]
 
-PAYPAL_RECEIVER_EMAIL = 'McCartneysystems@gmail.com'
+PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = False
 
 MIDDLEWARE = [
@@ -64,12 +66,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_crowdfund.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+if not DEBUG:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -96,23 +102,49 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_ROOT = BASE_DIR / 'media'
-
-MEDIA_URL = '/media/'
-
-STATIC_ROOT = BASE_DIR / 'static_root'
-
-STATIC_URL = '/static/'
+if not DEBUG:
+    # aws settings
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = None
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # s3 static settings
+    STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    STATICFILES_STORAGE = 'django_crowdfund.storage_backends.StaticStorage'
+    # s3 media settings
+    MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'django_crowdfund.storage_backends.MediaStorage'
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# /media/blog/image.jpg
-CKEDITOR_UPLOAD_PATH = 'blog/'
-CKEDITOR_IMAGE_BACKEND = 'pillow'
-CKEDITOR_BROWSE_SHOW_DIRS = True
-CKEDITOR_ALLOW_NONIMAGE_FILES = False
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     'compressor.finders.CompressorFinder',
+# )
+
+# COMPRESS_ENABLED = True
+# COMPRESS_OFFLINE = True
+# COMPRESS_CSS_HASHING_METHOD = 'content'
+# COMPRESS_STORAGE = STATICFILES_STORAGE
+# COMPRESS_ROOT = STATICFILES_DIRS
+# COMPRESS_URL = STATIC_URL
+
+# CKEDITOR_UPLOAD_PATH = 'blog/'
+# CKEDITOR_IMAGE_BACKEND = 'pillow'
+# CKEDITOR_BROWSE_SHOW_DIRS = True
+# CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 # Braintree settings
 
@@ -160,5 +192,3 @@ CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-
-django_heroku.settings(locals())

@@ -26,7 +26,7 @@
                                 <div class="crowdfund-tab">
 						            <div class="crowdfund-tab-header">
 						            	<a class="crowdfund-tab-link" href="#">Pay via Bank Transfer</a>
-						            	<a class="crowdfund-tab-link" href="#">Pay with Paypal</a>
+						            	<!-- <a class="crowdfund-tab-link" href="#">Pay with Paypal</a> -->
 						            	<a class="crowdfund-tab-link" href="#">Pay with Paystack</a>
 						            </div>
 						            <div class="crowdfund-tab-container">
@@ -38,10 +38,10 @@
 										        Access Bank
 										    </p>
 						                </div>
-						                <div class="crowdfund-tab-content">
+						                <!-- <div class="crowdfund-tab-content">
 						                	<p>You'll be redirected to the Paypal platform to complete your payment.</p>
 										    {{ paypal_form.render }}
-						                </div>
+						                </div> -->
 						                <div class="crowdfund-tab-content">
 						                	<form>
                                               <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -72,7 +72,6 @@
       key: '{{ paystack_key }}',
       email: '{{ order.email }}',
       amount: {{ paystack_amount }},
-      channels: ['card', 'bank', 'ussd', 'qr'],
       reference: ''+Math.floor((Math.random() * 1000000000) + 1),
       callback: function(response){
           window.location.href = "{{ paystack_redirect_url }}&trxref=" + response.reference

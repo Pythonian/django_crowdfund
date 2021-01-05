@@ -21,12 +21,12 @@
                         <div class="crowdfund-menu-links">
                             <ul class="crowdfund-menu-list">
                                 <li class="crowdfund-menu-item"><a class="scrollto" href="#welcome">About</a></li>
-                                <li class="crowdfund-menu-item"><a class="scrollto" href="#crowdfund-section-video">Trailer</a></li>
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#crowdfund-section-video">Watch Trailer</a></li>
                                 <li class="crowdfund-menu-item"><a class="scrollto" href="#gallery">Gallery</a></li>
-                                <li class="crowdfund-menu-item"><a class="scrollto" href="#rewards">Rewards</a></li>
+                                <li class="crowdfund-menu-item"><a class="scrollto" href="#rewards">Donate Now</a></li>
                                 <!-- <li class="crowdfund-menu-item"><a class="scrollto" href="#blog">Blog</a></li> -->
                                 <li class="crowdfund-menu-item"><a class="scrollto" href="#faq">F.A.Q</a></li>
-                                <li class="crowdfund-menu-item"><a class="scrollto" href="#contact">Contact</a></li>
+                                <!-- <li class="crowdfund-menu-item"><a class="scrollto" href="#contact">Contact</a></li> -->
                             </ul>
                         </div>
                     </div>
@@ -169,6 +169,7 @@
                     <div class="crowdfund-portfolio-items">
                         {% for photo in photos %}
                         <div class="crowdfund-portfolio-item">
+                            {% if photo.image and photo.image_thumbnail %}
                             <a class="crowdfund-portfolio-item-container" href="{{ photo.image.url }}">
                                 <img src="{{ photo.image_thumbnail.url }}" alt="{{ photo.caption }}" />
                                 {% if photo.title or photo.caption %}
@@ -185,6 +186,7 @@
                                 </div>
                                 {% endif %}
                             </a>
+                            {% endif %}
                         </div>
                         {% empty %}
                         <p class="crowdfund-text-center">
@@ -277,7 +279,7 @@
     </section>
 
     <!-- Contact Us -->
-    <section class="crowdfund-section crowdfund-section-light crowdfund-section-contacts" id="contact">
+    <!-- <section class="crowdfund-section crowdfund-section-light crowdfund-section-contacts" id="contact">
         <div class="crowdfund-section-content">
             <div class="crowdfund-limit-width">
                 <div class="crowdfund-content-padding">
@@ -290,15 +292,11 @@
                         <div class="crowdfund-table crowdfund-table-contacts">
                             <div class="crowdfund-row">
                                 <div class="crowdfund-col crowdfund-col-6 crowdfund-col-phone-12">
-                                    <!-- <input type="text" name="crowdfund-name" placeholder="Your name" required="required" />
-                                    <input type="email" name="crowdfund-email" placeholder="yourmail@example.com" required="required" />
-                                    <input type="text" name="crowdfund-subject" placeholder="Subject" required="required" /> -->
                                     {{ form.fullname }}
                                     {{ form.subject }}
                                     {{ form.from_email }}
                                 </div>
                                 <div class="crowdfund-col crowdfund-col-6 crowdfund-col-phone-12">
-                                    <!-- <textarea placeholder="Message" name="crowdfund-message" required="required"></textarea> -->
                                     {{ form.message }}
                                 </div>
                             </div>
@@ -315,6 +313,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     
 {% endblock %}

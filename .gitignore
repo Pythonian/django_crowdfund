@@ -128,5 +128,5 @@ dmypy.json
 .pyre/
 .vscode
 
-static_root/
 db.sqlite3
+media

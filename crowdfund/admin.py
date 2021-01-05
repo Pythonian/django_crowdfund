@@ -37,5 +37,10 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'created']
     prepopulated_fields = {'slug': ('title',)}
 
-admin.site.register(Gallery)
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = ['title', 'caption']
+
+
 admin.site.register(Section)
