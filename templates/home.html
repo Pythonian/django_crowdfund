@@ -169,7 +169,7 @@
                     <div class="crowdfund-portfolio-items">
                         {% for photo in photos %}
                         <div class="crowdfund-portfolio-item">
-                            {% if photo.image and photo.image_thumbnail %}
+                            {% if photo.image %}
                             <a class="crowdfund-portfolio-item-container" href="{{ photo.image.url }}">
                                 <img src="{{ photo.image_thumbnail.url }}" alt="{{ photo.caption }}" />
                                 {% if photo.title or photo.caption %}
