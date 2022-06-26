@@ -1,16 +1,18 @@
 import dj_database_url
-import os
+from pathlib import Path
+
+from decouple import config
 from dotenv import load_dotenv
 load_dotenv()
-from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = int(os.getenv('DEBUG'))
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'www.whenwillibefamous.com', 'whenwillibefamous.com']
+ALLOWED_HOSTS = config('ALLOWED_HOSTS',
+                       cast=lambda v: [s.strip() for s in v.split(',')])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,13 +26,13 @@ INSTALLED_APPS = [
     'paystack.frameworks.django',
     'paypal.standard.ipn',
     'imagekit',
-    #'ckeditor',
-    #'ckeditor_uploader',
+    # 'ckeditor',
+    # 'ckeditor_uploader',
     'storages',
-    #'compressor',
+    # 'compressor',
 ]
 
-PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
+PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = False
 
 MIDDLEWARE = [
@@ -48,7 +50,7 @@ ROOT_URLCONF = 'django_crowdfund.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(BASE_DIR / 'templates'),],
+        'DIRS': [(BASE_DIR / 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +70,17 @@ WSGI_APPLICATION = 'django_crowdfund.wsgi.application'
 
 
 if not DEBUG:
-    DATABASES = { 'default': dj_database_url.config(conn_max_age=600) }
+    DATABASES = {'default': dj_database_url.config(conn_max_age=600)}
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'NAME': config('DB_NAME', default=''),
+    #         'USER': config('DB_USER', default=''),
+    #         'PASSWORD': config('DB_PASSWORD', default=''),
+    #         'HOST': 'localhost',
+    #         'PORT': '5847'
+    #     }
+    # }
 else:
     DATABASES = {
         'default': {
@@ -104,19 +116,22 @@ USE_TZ = True
 
 if not DEBUG:
     # aws settings
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    # all files will inherit the bucket's grant & permissions
     AWS_DEFAULT_ACL = None
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     # s3 static settings
-    STATIC_LOCATION = 'static'
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    AWS_STATIC_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_STATIC_LOCATION}/'
     STATICFILES_STORAGE = 'django_crowdfund.storage_backends.StaticStorage'
+    # For CloudFront CDN
+    AWS_S3_CUSTOM_DOMAIN = config('AWS_S3_CUSTOM_DOMAIN')
     # s3 media settings
-    MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+    AWS_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
     DEFAULT_FILE_STORAGE = 'django_crowdfund.storage_backends.MediaStorage'
 else:
     STATIC_URL = '/static/'
@@ -148,9 +163,9 @@ STATICFILES_DIRS = [
 
 # Braintree settings
 
-# BRAINTREE_MERCHANT_ID = os.getenv('BRAINTREE_MERCHANT_ID')
-# BRAINTREE_PUBLIC_KEY = os.getenv('BRAINTREE_PUBLIC_KEY')
-# BRAINTREE_PRIVATE_KEY = os.getenv('BRAINTREE_PRIVATE_KEY')
+# BRAINTREE_MERCHANT_ID = config('BRAINTREE_MERCHANT_ID')
+# BRAINTREE_PUBLIC_KEY = config('BRAINTREE_PUBLIC_KEY')
+# BRAINTREE_PRIVATE_KEY = config('BRAINTREE_PRIVATE_KEY')
 
 # import braintree
 
@@ -164,21 +179,24 @@ STATICFILES_DIRS = [
 # Amount that you are trying to raise.
 GOAL = '25000'
 
-PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
-PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = config('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
 
-AUTHOR_EMAIL = os.getenv('AUTHOR_EMAIL')
-DEFAULT_FROM_EMAIL = os.getenv('AUTHOR_EMAIL')
+AUTHOR_EMAIL = config('AUTHOR_EMAIL')
+DEFAULT_FROM_EMAIL = config('AUTHOR_EMAIL')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT'))
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = True
 
 if not DEBUG:
+    CORS_REPLACE_HTTPS_REFERER = True
+    HOST_SCHEME = "https://"
+    SECURE_FRAME_DENY = True
     SECURE_HSTS_SECONDS = 2592000
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
@@ -186,8 +204,21 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_REDIRECT_EXEMPT = []
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+else:
+    CORS_REPLACE_HTTPS_REFERER = False
+    HOST_SCHEME = "http://"
+    SECURE_PROXY_SSL_HEADER = None
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    SECURE_HSTS_SECONDS = None
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    SECURE_FRAME_DENY = False
 
-CELERY_BROKER_URL = os.getenv('REDIS_URL')
+CELERY_BROKER_URL = config('REDIS_URL')
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'

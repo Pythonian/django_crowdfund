@@ -5,5 +5,4 @@ class CrowdfundConfig(AppConfig):
     name = 'crowdfund'
 
     def ready(self):
-    	import crowdfund.signals
-
+        import crowdfund.signals

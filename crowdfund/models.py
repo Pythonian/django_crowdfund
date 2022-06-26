@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from imagekit.models import ImageSpecField
@@ -20,7 +19,8 @@ class Reward(models.Model):
 
 class Perk(models.Model):
     description = models.CharField(max_length=255)
-    reward = models.ForeignKey(Reward, on_delete=models.CASCADE, related_name='perks')
+    reward = models.ForeignKey(
+        Reward, on_delete=models.CASCADE, related_name='perks')
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -57,7 +57,8 @@ class FrequentlyAskedQuestion(models.Model):
 
 
 class FrequentlyAskedQuestionDescription(models.Model):
-    faq = models.ForeignKey(FrequentlyAskedQuestion, on_delete=models.CASCADE, related_name='faqs')
+    faq = models.ForeignKey(FrequentlyAskedQuestion,
+                            on_delete=models.CASCADE, related_name='faqs')
     description = models.TextField()
 
 
@@ -66,8 +67,8 @@ class Gallery(models.Model):
     caption = models.CharField(max_length=100, blank=True)
     image = models.ImageField(upload_to='images')
     image_thumbnail = ImageSpecField(source='image',
-        processors=[ResizeToFill(380, 254)],
-        format='JPEG', options={'quality': 60})
+                                     processors=[ResizeToFill(380, 254)],
+                                     format='JPEG', options={'quality': 60})
 
     class Meta:
         verbose_name_plural = 'Galleries'
@@ -82,7 +83,7 @@ class Section(models.Model):
     image = models.ImageField(upload_to='images', blank=True)
 
     def __str__(self):
-        return self.title	
+        return self.title
 
 
 class Post(models.Model):
@@ -92,8 +93,8 @@ class Post(models.Model):
     body = models.TextField()
     image = models.ImageField(upload_to='images')
     image_thumbnail = ImageSpecField(source='image',
-        processors=[ResizeToFill(700, 150)],
-        format='JPEG', options={'quality': 60})
+                                     processors=[ResizeToFill(700, 150)],
+                                     format='JPEG', options={'quality': 60})
     draft = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

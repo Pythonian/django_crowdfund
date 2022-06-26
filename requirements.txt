@@ -7,8 +7,9 @@ django-storages==1.11.1
 Pillow==8.0.1
 -e git+https://github.com/gbozee/pypaystack.git@d5a463262440e39c9505e5dbd4e61f724337f98d#egg=pypaystack
 python-dotenv==0.14.0
-gunicorn==20.0.4
+python-decouple
+#gunicorn==20.0.4
 redis==3.5.3
 celery==5.0.5
 dj-database-url==0.5.0
-psycopg2==2.8.6
+#psycopg2==2.8.6
